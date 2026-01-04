@@ -2,38 +2,33 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>小王子星際冒險 - 雲端同步 V3 (Name Key)</title>
+    <title>小王子與公主 - 增量同步 V9</title>
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Mali:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* --- 延用 V8 華麗深空美化 CSS --- */
+        /* --- 延用漫畫深空風格 CSS --- */
         * { font-family: 'ZCOOL KuaiLe', 'Mali', 'Microsoft JhengHei', cursive; box-sizing: border-box; }
-        :root {
-            --neon-pink: #ff007f; --neon-blue: #00d4ff; --neon-purple: #bd00ff;
-            --neon-gold: #ffd700; --cute-green: #2ecc71; --deep-space-black: #050505;
-        }
-        body { background: radial-gradient(ellipse at bottom, #1B2735 0%, #090a0f 100%); background-color: var(--deep-space-black); margin: 0; padding: 20px; color: #fff; min-height: 100vh; overflow-x: hidden; }
+        :root { --neon-pink: #ff007f; --neon-blue: #00d4ff; --neon-gold: #ffd700; --cute-green: #2ecc71; --space-black: #050505; }
+        body { background: radial-gradient(ellipse at bottom, #1B2735 0%, #090a0f 100%); background-color: var(--space-black); margin: 0; padding: 20px; color: #fff; min-height: 100vh; overflow-x: hidden; }
         .stars-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
-        .star-layer { position: absolute; width: 100%; height: 100%; background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px); background-size: 550px 550px; animation: space-drift 120s linear infinite; opacity: 0.5; }
+        .star-layer { position: absolute; width: 100%; height: 100%; background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px); background-size: 550px 550px; animation: space-drift 120s linear infinite; }
         @keyframes space-drift { from { transform: translateY(0); } to { transform: translateY(-1000px); } }
         .container { max-width: 1550px; margin: auto; background: rgba(20, 20, 30, 0.4); backdrop-filter: blur(25px); padding: 40px; border-radius: 60px; border: 3px solid rgba(0, 212, 255, 0.3); box-shadow: 0 0 60px rgba(0, 132, 255, 0.2); margin-bottom: 120px; }
-        h1 { text-align: center; font-size: 3.5em; margin: 0 0 30px 0; background: linear-gradient(to right, var(--neon-pink), var(--neon-purple), var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(189, 0, 255, 0.6)); }
+        h1 { text-align: center; font-size: 3.5em; margin: 0 0 30px 0; background: linear-gradient(to right, var(--neon-pink), #bd00ff, var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(189, 0, 255, 0.6)); }
         .admin-panel { background: rgba(0, 0, 0, 0.5); padding: 30px; border-radius: 40px; margin-bottom: 40px; border: 2px solid var(--neon-blue); display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-        .admin-panel input, .admin-panel select { padding: 12px 20px; border-radius: 25px; border: 2px solid var(--neon-blue); background: rgba(10, 10, 25, 0.8); font-size: 16px; color: var(--neon-blue); width: 160px; outline: none; font-weight: bold; }
-        .btn-main { padding: 12px 30px; border-radius: 25px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; color: white; }
-        .btn-add { background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple)); box-shadow: 0 0 20px rgba(255, 0, 127, 0.5); }
-        .student-card { display: grid; grid-template-columns: 240px 1fr 180px 160px; align-items: center; background: rgba(255, 255, 255, 0.08); margin-bottom: 25px; padding: 25px; border-radius: 45px; border: 2px solid rgba(255, 255, 255, 0.15); position: relative; }
+        .admin-panel input, .admin-panel select { padding: 12px 20px; border-radius: 25px; border: 2px solid var(--neon-blue); background: rgba(10, 10, 25, 0.8); font-size: 16px; color: var(--neon-blue); width: 160px; outline: none; }
+        .btn-main { padding: 12px 30px; border-radius: 25px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; color: white; transition: 0.3s; }
+        .btn-add { background: linear-gradient(45deg, var(--neon-pink), #bd00ff); }
+        .student-card { display: grid; grid-template-columns: 240px 1fr 180px 160px; align-items: center; background: rgba(255, 255, 255, 0.05); margin-bottom: 25px; padding: 25px; border-radius: 45px; border: 2px solid rgba(255, 255, 255, 0.15); position: relative; }
         .active-today { border-color: var(--cute-green); box-shadow: 0 0 30px rgba(46, 204, 113, 0.4); }
-        .btn-delete { position: absolute; top: 15px; left: 15px; background: rgba(255, 77, 77, 0.2); color: #ff4d4d; border: 2px solid #ff4d4d; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; opacity: 0.3; transition: 0.3s; display: flex; justify-content: center; align-items: center; }
-        .student-card:hover .btn-delete { opacity: 1; }
+        .btn-delete { position: absolute; top: 15px; left: 15px; background: rgba(255, 77, 77, 0.2); color: #ff4d4d; border: 2px solid #ff4d4d; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; }
         .profile-area { text-align: center; border-right: 2px solid rgba(255,255,255,0.2); padding-right: 15px; }
         .avatar { font-size: 55px; animation: float 3s infinite ease-in-out; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .score-box { background: linear-gradient(45deg, var(--neon-gold), #f39c12); padding: 6px 15px; border-radius: 20px; color: #000; font-weight: bold; margin-top: 10px; display: inline-block; box-shadow: 0 0 20px var(--neon-gold); }
-        .map-track { position: relative; height: 100px; margin: 0 25px; background: rgba(0, 0, 0, 0.3); border-radius: 40px; display: flex; justify-content: space-between; align-items: center; padding: 0 40px; border: 3px solid rgba(255,255,255,0.2); }
-        .manga-icon { width: 50px; height: 50px; filter: drop-shadow(0 0 5px white); }
-        .node-label { margin-top: 5px; font-size: 10px; color: #bbb; text-align: center; }
+        .name { font-size: 26px; font-weight: bold; color: #fff; text-shadow: 0 0 10px var(--neon-blue); }
+        .score-box { background: linear-gradient(45deg, var(--neon-gold), #f39c12); padding: 6px 15px; border-radius: 20px; color: #000; font-weight: bold; margin-top: 10px; display: inline-block; }
+        .map-track { position: relative; height: 90px; margin: 0 25px; background: rgba(0, 0, 0, 0.3); border-radius: 45px; display: flex; justify-content: space-between; align-items: center; padding: 0 45px; border: 3px solid rgba(255,255,255,0.2); }
         .marker-icon { position: absolute; top: -55px; font-size: 70px; transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1.2); z-index: 10; filter: drop-shadow(0 0 20px var(--neon-pink)); }
-        .ops { display: flex; flex-direction: column; gap: 6px; padding: 0 10px; }
+        .ops { display: flex; flex-direction: column; gap: 8px; padding: 0 10px; }
         .btn-op { border: none; padding: 8px; border-radius: 15px; color: white; font-weight: bold; cursor: pointer; font-size: 13px; border: 1px solid rgba(255,255,255,0.3); }
         .btn-att { background: linear-gradient(to bottom, #2ecc71, #27ae60); }
         .btn-bonus { background: linear-gradient(to bottom, #3498db, #2980b9); }
@@ -42,52 +37,50 @@
         .btn-claim { background: linear-gradient(45deg, var(--neon-gold), #f39c12); color: #000; border: 1px solid #fff; padding: 6px; border-radius: 12px; font-size: 11px; font-weight: bold; cursor: pointer; }
         .status-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10, 10, 30, 0.95); padding: 20px; border-top: 4px solid var(--neon-blue); display: flex; justify-content: space-around; align-items: center; font-size: 1.4em; font-weight: bold; color: var(--neon-blue); z-index: 1000; backdrop-filter: blur(15px); }
         .stat-badge { background: var(--neon-blue); color: #000; padding: 5px 25px; border-radius: 30px; }
-        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 9999; color: var(--neon-blue); font-size: 2em; }
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; color: var(--neon-blue); font-size: 1.5em; }
     </style>
 </head>
 <body>
 
 <div class="stars-container"><div class="star-layer"></div></div>
-<div id="loading" class="loading-overlay">🚀 連線至太空站中...</div>
+<div id="loading" class="loading-overlay">🚀 正在連線至雲端資料庫...</div>
 
 <div class="container">
-    <h1>🚀 小王子與公主：雲端資料庫 🪐</h1>
+    <h1>🚀 小王子與公主：增量同步冒險 🪐</h1>
     <div class="admin-panel">
-        <input type="text" id="stuName" placeholder="孩子姓名">
+        <input type="text" id="stuName" placeholder="探險家姓名">
         <select id="stuGender"><option value="boy">男生 🤴</option><option value="girl">女生 👸</option></select>
         <input type="text" id="stuBday" placeholder="生日 (05/20)"><input type="text" id="stuPhone" placeholder="電話">
         <button class="btn-main btn-add" onclick="addStudent()">✨ 召喚成員</button>
-        <button class="btn-main" style="background:#8e44ad;" onclick="fetchData()">🔄 刷新同步</button>
+        <button class="btn-main" style="background:#8e44ad;" onclick="fetchData()">🔄 刷新資料</button>
     </div>
     <div id="playerBoard"></div>
 </div>
 
 <div class="status-bar">
-    <div>📅 任務日期：<span id="todayDate" style="color:#fff;"></span></div>
+    <div>📅 星曆日期：<span id="todayDate" style="color:#fff;"></span></div>
     <div>🧑‍🤝‍🧑 今日報到：<span class="stat-badge" id="totalAtt">0</span></div>
     <div>🎁 可兌換：<span class="stat-badge" id="canClaimCount" style="background:var(--neon-gold);">0</span></div>
 </div>
 
 <script>
-    // ⚠️ 請換成你的 GAS 網頁應用程式網址
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx8Q4Ywj4B-ojj1DVMnxuJgumgPLro9A21phgHL2BSHa0CjkdaP0tjbOXx1JkkKsUSUVQ/exec";
+    const WEB_APP_URL = "你的API網址貼這裡";
 
     let students = [];
-    const mangaIcons = {
-        start: `🌹`, drink: `🧃`, snack: `🍪`, popsicle: `🧊`, cone: `🍦`, sundae: `🍨`, toy: `🧸`
-    };
+    let isDataLoaded = false;
 
     const config = [
-        { pts: 0, icon: mangaIcons.start, label: "起點" },
-        { pts: 30, icon: mangaIcons.drink, label: "鋁箔包" },
-        { pts: 50, icon: mangaIcons.snack, label: "零食包" },
-        { pts: 100, icon: mangaIcons.popsicle, label: "冰棒" },
-        { pts: 200, icon: mangaIcons.cone, label: "霜淇淋" },
-        { pts: 400, icon: mangaIcons.sundae, label: "冰炫風" },
-        { pts: 500, icon: mangaIcons.toy, label: "玩具" }
+        { pts: 0, icon: "🌹", label: "起點" },
+        { pts: 30, icon: "🧃", label: "鋁箔包" },
+        { pts: 50, icon: "🍪", label: "零食包" },
+        { pts: 100, icon: "🧊", label: "冰棒" },
+        { pts: 200, icon: "🍦", label: "霜淇淋" },
+        { pts: 400, icon: "🍨", label: "冰炫風" },
+        { pts: 500, icon: "🧸", label: "玩具" }
     ];
 
     async function fetchData() {
+        isDataLoaded = false;
         document.getElementById('loading').style.display = 'flex';
         try {
             const response = await fetch(WEB_APP_URL);
@@ -97,85 +90,76 @@
                 phone: item.電話, score: parseInt(item.分數) || 0,
                 lastDate: item.最後出席日期
             }));
+            isDataLoaded = true;
             render();
-        } catch (e) { alert("連線失敗！請檢查 API 網址。"); }
+        } catch (e) { alert("連線失敗！"); }
         document.getElementById('loading').style.display = 'none';
     }
 
-    async function syncToCloud() {
+    // --- 【新核心：增量更新指令傳送】 ---
+    async function postToCloud(payload) {
+        if (!isDataLoaded) return;
+        // 雖然是 no-cors，但後端依然能收到 body 內容
         await fetch(WEB_APP_URL, {
-            method: 'POST', mode: 'no-cors',
+            method: 'POST',
+            mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type: 'UPDATE_ALL', students: students })
+            body: JSON.stringify(payload)
         });
         updateStats();
     }
 
-    // --- 改用 Name 作為 Key 的核心功能 ---
-
     async function addStudent() {
+        if (!isDataLoaded) return;
         const name = document.getElementById('stuName').value.trim();
         const gender = document.getElementById('stuGender').value;
         const bday = document.getElementById('stuBday').value || "--/--";
         const phone = document.getElementById('stuPhone').value || "未設定";
+        if (!name || students.find(s => s.name === name)) { alert("姓名錯誤或重複！"); return; }
         
-        if (!name) return;
-        
-        // 【防重名檢查】
-        if (students.find(s => s.name === name)) {
-            alert('❌ 名字重複了！請加個姓氏或綽號區分。');
-            return;
-        }
-
-        students.push({ name, gender, birthday: bday, phone, score: 0, lastDate: "" });
+        const newStudent = { name, gender, birthday: bday, phone, score: 0, lastDate: "" };
+        students.push(newStudent);
+        render(); // 立即更新介面
+        await postToCloud({ type: 'ADD', ...newStudent });
         document.getElementById('stuName').value = '';
-        render();
-        await syncToCloud();
     }
 
     async function removeStudent(targetName) {
+        if (!isDataLoaded) return;
         if (confirm(`⚠️ 確定要移除【${targetName}】嗎？`)) {
-            // 【透過名字尋找並移除】
             students = students.filter(s => s.name !== targetName);
             render();
-            await syncToCloud();
+            await postToCloud({ type: 'DELETE', name: targetName });
         }
     }
 
-    async function updateScoreByName(targetName, amount) {
-        // 【透過名字尋找對象】
-        const student = students.find(s => s.name === targetName);
-        if (student) {
-            student.score += amount;
-            if (student.score < 0) student.score = 0;
-            render();
-            await syncToCloud();
-        }
-    }
-
-    async function checkAttendanceByName(targetName) {
-        const student = students.find(s => s.name === targetName);
-        if (student) {
-            const now = new Date();
-            student.lastDate = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
-            student.score += 10;
-            render();
-            await syncToCloud();
-        }
-    }
-
-    async function claimGiftByName(targetName, pts, giftName) {
-        if (confirm(`兌換【${giftName}】嗎？`)) {
-            const student = students.find(s => s.name === targetName);
-            if (student) {
-                student.score -= pts;
-                render();
-                await syncToCloud();
+    async function updateStudentData(targetName, scoreChange, isAttendance = false) {
+        if (!isDataLoaded) return;
+        const s = students.find(s => s.name === targetName);
+        if (s) {
+            s.score += scoreChange;
+            if (s.score < 0) s.score = 0;
+            if (isAttendance) {
+                const now = new Date();
+                s.lastDate = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
             }
+            render();
+            // 只傳送受影響的這份資料
+            await postToCloud({
+                type: 'UPDATE_SINGLE',
+                name: s.name,
+                score: s.score,
+                lastDate: s.lastDate
+            });
         }
     }
 
-    // --- 渲染與統計 ---
+    async function claimGift(targetName, pts, giftName) {
+        if (!isDataLoaded) return;
+        if (confirm(`兌換【${giftName}】嗎？`)) {
+            await updateStudentData(targetName, -pts);
+        }
+    }
 
     function updateStats() {
         const now = new Date();
@@ -204,7 +188,7 @@
                         <div class="avatar">${avatarIcon}</div>
                         <div class="name">${s.name}</div>
                         <div class="info-text">🎂 生日: ${s.birthday}</div>
-                        <div class="info-text" style="color:var(--neon-blue)">📞 電話: ${s.phone}</div>
+                        <div class="info-text" style="color:var(--neon-blue)">📞 ${s.phone}</div>
                         <div class="score-box">⭐ ${s.score} pt</div>
                     </div>
                     <div class="map-track">
@@ -212,14 +196,14 @@
                         <div class="marker-icon" style="left: calc(${progress}% - 35px)">${avatarIcon}</div>
                     </div>
                     <div class="ops">
-                        <button class="btn-op btn-att" onclick="checkAttendanceByName('${s.name}')">出席報到 +10</button>
-                        <button class="btn-op btn-bonus" onclick="updateScoreByName('${s.name}', 10)">表現加分 +10</button>
-                        <button class="btn-op btn-sub" onclick="updateScoreByName('${s.name}', -10)">修正扣分 -10</button>
+                        <button class="btn-op btn-att" onclick="updateStudentData('${s.name}', 10, true)">出席點名 +10</button>
+                        <button class="btn-op btn-bonus" onclick="updateStudentData('${s.name}', 10)">表現加分 +10</button>
+                        <button class="btn-op btn-sub" onclick="updateStudentData('${s.name}', -10)">修正扣分 -10</button>
                     </div>
                     <div class="claim-area">
                         ${canRedeem.length > 0 ? canRedeem.map(cr => `
-                            <button class="btn-claim" onclick="claimGiftByName('${s.name}', ${cr.pts}, '${cr.label}')">換${cr.label}</button>
-                        `).join('') : '<span style="color:#666; font-size:12px;">冒險中...</span>'}
+                            <button class="btn-claim" onclick="claimGift('${s.name}', ${cr.pts}, '${cr.label}')">換${cr.label}</button>
+                        `).join('') : '<span style="color:#666; font-size:12px;">探索中...</span>'}
                     </div>
                 </div>`;
         });
@@ -230,4 +214,3 @@
 </script>
 </body>
 </html>
-
