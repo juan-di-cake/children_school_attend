@@ -2,150 +2,107 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>小王子與公主 - 全圖片客製版 V12</title>
+    <title>小王子與公主 - 中壢合一堂</title>
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Mali:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* --- 宇宙深空美化 CSS --- */
+        /* --- 延用漫畫深空風格 CSS --- */
         * { font-family: 'ZCOOL KuaiLe', 'Mali', 'Microsoft JhengHei', cursive; box-sizing: border-box; }
-        :root {
-            --neon-pink: #ff007f; --neon-blue: #00d4ff; --neon-purple: #bd00ff;
-            --neon-gold: #ffd700; --cute-green: #2ecc71; --space-black: #050505;
-        }
+        :root { --neon-pink: #ff007f; --neon-blue: #00d4ff; --neon-gold: #ffd700; --cute-green: #2ecc71; --space-black: #050505; }
         body { background: radial-gradient(ellipse at bottom, #1B2735 0%, #090a0f 100%); background-color: var(--space-black); margin: 0; padding: 20px; color: #fff; min-height: 100vh; overflow-x: hidden; }
-        
-        /* 漂浮星星背景 */
         .stars-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
-        .star-layer { position: absolute; width: 100%; height: 100%; background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px); background-size: 550px 550px; animation: space-drift 120s linear infinite; opacity: 0.5; }
+        .star-layer { position: absolute; width: 100%; height: 100%; background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px); background-size: 550px 550px; animation: space-drift 120s linear infinite; }
         @keyframes space-drift { from { transform: translateY(0); } to { transform: translateY(-1000px); } }
-
         .container { max-width: 1550px; margin: auto; background: rgba(20, 20, 30, 0.4); backdrop-filter: blur(25px); padding: 40px; border-radius: 60px; border: 3px solid rgba(0, 212, 255, 0.3); box-shadow: 0 0 60px rgba(0, 132, 255, 0.2); margin-bottom: 120px; }
-        
-        h1 { text-align: center; font-size: 3.5em; margin: 0 0 30px 0; background: linear-gradient(to right, var(--neon-pink), #bd00ff, var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(189, 0, 255, 0.6)); letter-spacing: 2px; }
-
+        h1 { text-align: center; font-size: 3.5em; margin: 0 0 30px 0; background: linear-gradient(to right, var(--neon-pink), #bd00ff, var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(189, 0, 255, 0.6)); }
         .admin-panel { background: rgba(0, 0, 0, 0.5); padding: 30px; border-radius: 40px; margin-bottom: 40px; border: 2px solid var(--neon-blue); display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-        .admin-panel input, .admin-panel select { padding: 12px 20px; border-radius: 25px; border: 2px solid var(--neon-blue); background: rgba(10, 10, 25, 0.8); font-size: 16px; color: var(--neon-blue); width: 160px; outline: none; font-weight: bold; }
-        
+        .admin-panel input, .admin-panel select { padding: 12px 20px; border-radius: 25px; border: 2px solid var(--neon-blue); background: rgba(10, 10, 25, 0.8); font-size: 16px; color: var(--neon-blue); width: 160px; outline: none; }
         .btn-main { padding: 12px 30px; border-radius: 25px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; color: white; transition: 0.3s; }
-        .btn-add { background: linear-gradient(45deg, var(--neon-pink), #bd00ff); box-shadow: 0 0 15px var(--neon-pink); }
-        .btn-refresh { background: #8e44ad; }
-
-        /* 角色卡片 */
+        .btn-add { background: linear-gradient(45deg, var(--neon-pink), #bd00ff); }
         .student-card { display: grid; grid-template-columns: 240px 1fr 180px 160px; align-items: center; background: rgba(255, 255, 255, 0.05); margin-bottom: 25px; padding: 25px; border-radius: 45px; border: 2px solid rgba(255, 255, 255, 0.15); position: relative; }
         .active-today { border-color: var(--cute-green); box-shadow: 0 0 30px rgba(46, 204, 113, 0.4); }
         .btn-delete { position: absolute; top: 15px; left: 15px; background: rgba(255, 77, 77, 0.2); color: #ff4d4d; border: 2px solid #ff4d4d; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; }
-
-        /* --- 新增：圖片頭像與標記樣式 (取代舊的 Emoji font 樣式) --- */
-        .profile-area { text-align: center; border-right: 2px solid rgba(255,255,255,0.2); padding-right: 15px; display: flex; flex-direction: column; align-items: center; }
-        
-        /* 左側大頭像圖片 */
-        .avatar-img { 
-            width: 90px; height: 90px; /* 設定圖片大小 */
-            border-radius: 50%; /* 圓形頭像 */
-            object-fit: cover; /* 保持圖片比例填滿 */
-            border: 3px solid var(--neon-blue);
-            box-shadow: 0 0 20px var(--neon-blue); /* 藍色發光 */
-            animation: float 3s infinite ease-in-out; /* 保留漂浮動畫 */
-            margin-bottom: 10px;
-            background: rgba(0,0,0,0.3); /* 避免透明圖在深底看不清 */
-        }
+        .profile-area { text-align: center; border-right: 2px solid rgba(255,255,255,0.2); padding-right: 15px; }
+        .avatar { font-size: 55px; animation: float 3s infinite ease-in-out; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-        /* 地圖軌道上的移動圖片 */
-        .marker-img { 
-            position: absolute; 
-            top: -70px; /* 調整垂直位置，讓它浮在軌道上 */
-            width: 75px; height: 75px; 
-            object-fit: contain;
-            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1.2); /* 平滑移動效果 */
-            z-index: 10; 
-            filter: drop-shadow(0 0 15px var(--neon-pink)); /* 粉色發光 */
-        }
-
         .name { font-size: 26px; font-weight: bold; color: #fff; text-shadow: 0 0 10px var(--neon-blue); }
-        .score-box { background: linear-gradient(45deg, var(--neon-gold), #f39c12); padding: 6px 15px; border-radius: 20px; color: #000; font-weight: bold; margin-top: 10px; display: inline-block; box-shadow: 0 0 15px var(--neon-gold); }
-
-        /* 軌道與獎品圖片 */
-        .map-track { position: relative; height: 110px; margin: 0 25px; background: rgba(0, 0, 0, 0.3); border-radius: 55px; display: flex; justify-content: space-between; align-items: center; padding: 0 50px; border: 3px solid rgba(255,255,255,0.2); box-shadow: inset 0 0 20px rgba(0, 212, 255, 0.2); }
-        .reward-img { width: 55px; height: 55px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(255,255,255,0.8)); transition: 0.3s; }
-        .reward-img:hover { transform: scale(1.2) rotate(5deg); filter: drop-shadow(0 0 20px var(--neon-gold)); }
-        
-        .node { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
-        .node-label { margin-top: 5px; font-size: 11px; color: #bbb; font-weight: bold; text-shadow: 0 1px 2px black; white-space: nowrap;}
-        
+        .score-box { background: linear-gradient(45deg, var(--neon-gold), #f39c12); padding: 6px 15px; border-radius: 20px; color: #000; font-weight: bold; margin-top: 10px; display: inline-block; }
+        .map-track { position: relative; height: 90px; margin: 0 25px; background: rgba(0, 0, 0, 0.3); border-radius: 45px; display: flex; justify-content: space-between; align-items: center; padding: 0 45px; border: 3px solid rgba(255,255,255,0.2); }
+        .marker-icon { position: absolute; top: -55px; font-size: 70px; transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1.2); z-index: 10; filter: drop-shadow(0 0 20px var(--neon-pink)); }
         .ops { display: flex; flex-direction: column; gap: 8px; padding: 0 10px; }
         .btn-op { border: none; padding: 8px; border-radius: 15px; color: white; font-weight: bold; cursor: pointer; font-size: 13px; border: 1px solid rgba(255,255,255,0.3); }
-        .btn-att { background: linear-gradient(to bottom, #2ecc71, #27ae60); box-shadow: 0 4px #1e8449; }
-        .btn-bonus { background: linear-gradient(to bottom, #3498db, #2980b9); box-shadow: 0 4px #21618c; }
-        .btn-sub { background: linear-gradient(to bottom, #e67e22, #d35400); box-shadow: 0 4px #a04000; }
-
-        .claim-area { display: flex; flex-direction: column; gap: 6px; padding-left: 15px; border-left: 2px dashed rgba(255,255,255,0.2); }
-        .btn-claim { background: linear-gradient(45deg, var(--neon-gold), #f39c12); color: #000; border: 2px solid #fff; padding: 6px; border-radius: 12px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 0 10px var(--neon-gold); }
-        .btn-claim img { width: 18px; height: 18px; object-fit: contain; }
-
+        .btn-att { background: linear-gradient(to bottom, #2ecc71, #27ae60); }
+        .btn-bonus { background: linear-gradient(to bottom, #3498db, #2980b9); }
+        .btn-sub { background: linear-gradient(to bottom, #e67e22, #d35400); }
+        .claim-area { display: flex; flex-direction: column; gap: 5px; padding-left: 15px; border-left: 2px dashed rgba(255,255,255,0.2); }
+        .btn-claim { background: linear-gradient(45deg, var(--neon-gold), #f39c12); color: #000; border: 1px solid #fff; padding: 6px; border-radius: 12px; font-size: 11px; font-weight: bold; cursor: pointer; }
         .status-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10, 10, 30, 0.95); padding: 20px; border-top: 4px solid var(--neon-blue); display: flex; justify-content: space-around; align-items: center; font-size: 1.4em; font-weight: bold; color: var(--neon-blue); z-index: 1000; backdrop-filter: blur(15px); }
-        .stat-badge { background: var(--neon-blue); color: #000; padding: 5px 25px; border-radius: 30px; box-shadow: 0 0 20px var(--neon-blue); }
-        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 9999; color: var(--neon-blue); font-size: 1.8em; }
+        .stat-badge { background: var(--neon-blue); color: #000; padding: 5px 25px; border-radius: 30px; }
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; color: var(--neon-blue); font-size: 1.5em; }
     </style>
 </head>
 <body>
 
 <div class="stars-container"><div class="star-layer"></div></div>
-<div id="loading" class="loading-overlay">🚀 正在連線至星際控制台...</div>
+<div id="loading" class="loading-overlay">🚀 正在連線至雲端資料庫...</div>
 
 <div class="container">
-    <h1>星際冒險：小王子與公主 🪐</h1>
+    <h1>🚀 小王子與公主- 中壢合一堂 🪐</h1>
     <div class="admin-panel">
         <input type="text" id="stuName" placeholder="探險家姓名">
-        <select id="stuGender"><option value="boy">男生</option><option value="girl">女生</option></select>
+        <select id="stuGender"><option value="boy">男生 </option><option value="girl">女生 </option></select>
         <input type="text" id="stuBday" placeholder="生日 (05/20)"><input type="text" id="stuPhone" placeholder="電話">
         <button class="btn-main btn-add" onclick="addStudent()">✨ 召喚成員</button>
-        <button class="btn-main btn-refresh" onclick="fetchData()">🔄 刷新資料</button>
+        <button class="btn-main" style="background:#8e44ad;" onclick="fetchData()">🔄 刷新資料</button>
     </div>
     <div id="playerBoard"></div>
 </div>
 
 <div class="status-bar">
-    <div>📅 任務日期：<span id="todayDate" style="color:#fff;"></span></div>
+    <div>📅 星曆日期：<span id="todayDate" style="color:#fff;"></span></div>
     <div>🧑‍🤝‍🧑 今日報到：<span class="stat-badge" id="totalAtt">0</span></div>
-    <div>🎁 可兌換獎勵：<span class="stat-badge" id="canClaimCount" style="background:var(--neon-gold);">0</span></div>
+    <div>🎁 可兌換：<span class="stat-badge" id="canClaimCount" style="background:var(--neon-gold);">0</span></div>
 </div>
 
 <script>
-    // ⚠️ 請填入你的 Google Apps Script 網頁應用程式網址
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyr4KCIYHK3t0ygY8ZLm-NO1j0qgSiNDtxTKQgB0ItG_XyKH15M6DcQmg808HEzbJ31Gw/exec";
 
-    // ▼▼▼ 請在這裡貼上你的圖片網址 (建議使用透明背景 PNG) ▼▼▼
-    const PRINCE_IMG_URL = "https://juan-di-cake.github.io/children_school_attend/boy.jpg";
-    const PRINCESS_IMG_URL = "https://juan-di-cake.github.io/children_school_attend/girl.png";
-    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
-
     let students = [];
-    let config = []; 
     let isDataLoaded = false;
+
+    const config = [
+        { pts: 0, icon: "🌹", label: "起點" },
+        { pts: 30, icon: "🧃", label: "鋁箔包" },
+        { pts: 50, icon: "🍪", label: "零食包" },
+        { pts: 100, icon: "🧊", label: "冰棒" },
+        { pts: 200, icon: "🍦", label: "霜淇淋" },
+        { pts: 400, icon: "🍨", label: "冰炫風" },
+        { pts: 500, icon: "🧸", label: "玩具" }
+    ];
 
     async function fetchData() {
         isDataLoaded = false;
         document.getElementById('loading').style.display = 'flex';
         try {
             const response = await fetch(WEB_APP_URL);
-            const result = await response.json();
-
-            students = result.students.map(item => ({
+            const data = await response.json();
+            students = data.map(item => ({
                 name: item.姓名, gender: item.性別, birthday: item.生日,
                 phone: item.電話, score: parseInt(item.分數) || 0,
                 lastDate: item.最後出席日期
             }));
-
             isDataLoaded = true;
             render();
-        } catch (e) { alert("連線失敗！請檢查 API 網址。"); }
+        } catch (e) { alert("連線失敗！"); }
         document.getElementById('loading').style.display = 'none';
     }
 
+    // --- 【新核心：增量更新指令傳送】 ---
     async function postToCloud(payload) {
         if (!isDataLoaded) return;
+        // 雖然是 no-cors，但後端依然能收到 body 內容
         await fetch(WEB_APP_URL, {
-            method: 'POST', mode: 'no-cors',
+            method: 'POST',
+            mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
@@ -158,12 +115,12 @@
         const gender = document.getElementById('stuGender').value;
         const bday = document.getElementById('stuBday').value || "--/--";
         const phone = document.getElementById('stuPhone').value || "未設定";
-        if (!name || students.find(s => s.name === name)) { alert("請輸入姓名或檢查重複！"); return; }
+        if (!name || students.find(s => s.name === name)) { alert("姓名錯誤或重複！"); return; }
         
-        const newStu = { name, gender, birthday: bday, phone, score: 0, lastDate: "" };
-        students.push(newStu);
-        render();
-        await postToCloud({ type: 'ADD', ...newStu });
+        const newStudent = { name, gender, birthday: bday, phone, score: 0, lastDate: "" };
+        students.push(newStudent);
+        render(); // 立即更新介面
+        await postToCloud({ type: 'ADD', ...newStudent });
         document.getElementById('stuName').value = '';
     }
 
@@ -187,7 +144,13 @@
                 s.lastDate = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
             }
             render();
-            await postToCloud({ type: 'UPDATE_SINGLE', name: s.name, score: s.score, lastDate: s.lastDate });
+            // 只傳送受影響的這份資料
+            await postToCloud({
+                type: 'UPDATE_SINGLE',
+                name: s.name,
+                score: s.score,
+                lastDate: s.lastDate
+            });
         }
     }
 
@@ -203,7 +166,7 @@
         const dateStr = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
         document.getElementById('todayDate').innerText = dateStr;
         document.getElementById('totalAtt').innerText = students.filter(s => s.lastDate == dateStr).length;
-        document.getElementById('canClaimCount').innerText = students.filter(s => s.score >= (config[1]?.pts || 30)).length;
+        document.getElementById('canClaimCount').innerText = students.filter(s => s.score >= 30).length;
     }
 
     function render() {
@@ -213,33 +176,24 @@
         const todayStr = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
 
         students.forEach((s) => {
-            const maxPts = config[config.length-1]?.pts || 500;
-            const progress = Math.min((s.score / maxPts) * 100, 100);
+            const progress = Math.min((s.score / 500) * 100, 100);
             const isAttended = s.lastDate == todayStr;
             const canRedeem = config.filter(r => r.pts > 0 && s.score >= r.pts).reverse();
-            
-            // --- 關鍵修改：根據性別決定使用哪張圖片的網址 ---
-            const avatarSrc = (s.gender === 'girl') ? PRINCESS_IMG_URL : PRINCE_IMG_URL;
-            const genderAlt = (s.gender === 'girl') ? '公主' : '王子';
+            const avatarIcon = (s.gender === 'girl') ? '👸' : '🤴';
 
             board.innerHTML += `
                 <div class="student-card ${isAttended ? 'active-today' : ''}">
                     <button class="btn-delete" onclick="removeStudent('${s.name}')">✕</button>
                     <div class="profile-area">
-                        <img src="${avatarSrc}" class="avatar-img" alt="${genderAlt}">
+                        <div class="avatar">${avatarIcon}</div>
                         <div class="name">${s.name}</div>
-                        <div class="info-text">🎂 ${s.birthday}</div>
+                        <div class="info-text">🎂 生日: ${s.birthday}</div>
                         <div class="info-text" style="color:var(--neon-blue)">📞 ${s.phone}</div>
                         <div class="score-box">⭐ ${s.score} pt</div>
                     </div>
                     <div class="map-track">
-                        ${config.map(c => `
-                            <div class="node">
-                                ${c.icon ? `<img src="${c.icon}" class="reward-img" onerror="this.src='https://via.placeholder.com/50?text=Gift'">` : `<div style="width:55px; height:55px; border:2px dashed #444; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#444;">🎁</div>`}
-                                <div class="node-label">${c.pts}pt ${c.label}</div>
-                            </div>
-                        `).join('')}
-                        <img src="${avatarSrc}" class="marker-img" style="left: calc(${progress}% - 35px)" alt="${genderAlt}標記">
+                        ${config.map(c => `<div class="node">${c.icon}<div class="node-label">${c.pts}pt</div></div>`).join('')}
+                        <div class="marker-icon" style="left: calc(${progress}% - 35px)">${avatarIcon}</div>
                     </div>
                     <div class="ops">
                         <button class="btn-op btn-att" onclick="updateStudentData('${s.name}', 10, true)">出席點名 +10</button>
@@ -248,9 +202,7 @@
                     </div>
                     <div class="claim-area">
                         ${canRedeem.length > 0 ? canRedeem.map(cr => `
-                            <button class="btn-claim" onclick="claimGift('${s.name}', ${cr.pts}, '${cr.label}')">
-                                ${cr.icon ? `<img src="${cr.icon}">` : '🎁'} 換${cr.label}
-                            </button>
+                            <button class="btn-claim" onclick="claimGift('${s.name}', ${cr.pts}, '${cr.label}')">換${cr.label}</button>
                         `).join('') : '<span style="color:#666; font-size:12px;">探索中...</span>'}
                     </div>
                 </div>`;
@@ -262,4 +214,5 @@
 </script>
 </body>
 </html>
+
 
