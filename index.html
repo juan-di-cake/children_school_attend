@@ -136,15 +136,6 @@
                 lastDate: item.最後出席日期
             }));
 
-            if (result.rewards && result.rewards.length > 0) {
-                config = result.rewards.map(r => ({
-                    pts: parseInt(r.點數),
-                    icon: r.圖片網址 || "", 
-                    label: r.名稱
-                }));
-                config.sort((a, b) => a.pts - b.pts);
-            }
-
             isDataLoaded = true;
             render();
         } catch (e) { alert("連線失敗！請檢查 API 網址。"); }
@@ -271,3 +262,4 @@
 </script>
 </body>
 </html>
+
