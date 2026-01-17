@@ -2,39 +2,94 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>小王子與公主 - 中壢合一堂</title>
+    <title>小王子與公主 - 中壢合一堂 (全圖片版)</title>
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Mali:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* --- 延用漫畫深空風格 CSS --- */
+        /* --- 基礎設定 --- */
         * { font-family: 'ZCOOL KuaiLe', 'Mali', 'Microsoft JhengHei', cursive; box-sizing: border-box; }
         :root { --neon-pink: #ff007f; --neon-blue: #00d4ff; --neon-gold: #ffd700; --cute-green: #2ecc71; --space-black: #050505; }
         body { background: radial-gradient(ellipse at bottom, #1B2735 0%, #090a0f 100%); background-color: var(--space-black); margin: 0; padding: 20px; color: #fff; min-height: 100vh; overflow-x: hidden; }
+        
         .stars-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
         .star-layer { position: absolute; width: 100%; height: 100%; background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px); background-size: 550px 550px; animation: space-drift 120s linear infinite; }
         @keyframes space-drift { from { transform: translateY(0); } to { transform: translateY(-1000px); } }
+        
         .container { max-width: 1550px; margin: auto; background: rgba(20, 20, 30, 0.4); backdrop-filter: blur(25px); padding: 40px; border-radius: 60px; border: 3px solid rgba(0, 212, 255, 0.3); box-shadow: 0 0 60px rgba(0, 132, 255, 0.2); margin-bottom: 120px; }
         h1 { text-align: center; font-size: 3.5em; margin: 0 0 30px 0; background: linear-gradient(to right, var(--neon-pink), #bd00ff, var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(189, 0, 255, 0.6)); }
+
         .admin-panel { background: rgba(0, 0, 0, 0.5); padding: 30px; border-radius: 40px; margin-bottom: 40px; border: 2px solid var(--neon-blue); display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
         .admin-panel input, .admin-panel select { padding: 12px 20px; border-radius: 25px; border: 2px solid var(--neon-blue); background: rgba(10, 10, 25, 0.8); font-size: 16px; color: var(--neon-blue); width: 160px; outline: none; }
         .btn-main { padding: 12px 30px; border-radius: 25px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; color: white; transition: 0.3s; }
         .btn-add { background: linear-gradient(45deg, var(--neon-pink), #bd00ff); }
+
+        /* --- 學生卡片樣式 --- */
         .student-card { display: grid; grid-template-columns: 240px 1fr 180px 160px; align-items: center; background: rgba(255, 255, 255, 0.05); margin-bottom: 25px; padding: 25px; border-radius: 45px; border: 2px solid rgba(255, 255, 255, 0.15); position: relative; }
         .active-today { border-color: var(--cute-green); box-shadow: 0 0 30px rgba(46, 204, 113, 0.4); }
-        .btn-delete { position: absolute; top: 15px; left: 15px; background: rgba(255, 77, 77, 0.2); color: #ff4d4d; border: 2px solid #ff4d4d; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+        .btn-delete { position: absolute; top: 15px; left: 15px; background: rgba(255, 77, 77, 0.2); color: #ff4d4d; border: 2px solid #ff4d4d; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; z-index: 5; }
+        
         .profile-area { text-align: center; border-right: 2px solid rgba(255,255,255,0.2); padding-right: 15px; }
-        .avatar { font-size: 55px; animation: float 3s infinite ease-in-out; }
+        
+        /* 角色頭像圖片樣式 */
+        .avatar-img { 
+            width: 80px; height: 80px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 3px solid var(--neon-blue);
+            filter: drop-shadow(0 0 10px var(--neon-blue));
+            animation: float 3s infinite ease-in-out; 
+        }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .name { font-size: 26px; font-weight: bold; color: #fff; text-shadow: 0 0 10px var(--neon-blue); }
+
+        .name { font-size: 26px; font-weight: bold; color: #fff; text-shadow: 0 0 10px var(--neon-blue); margin-top: 10px; }
         .score-box { background: linear-gradient(45deg, var(--neon-gold), #f39c12); padding: 6px 15px; border-radius: 20px; color: #000; font-weight: bold; margin-top: 10px; display: inline-block; }
-        .map-track { position: relative; height: 90px; margin: 0 25px; background: rgba(0, 0, 0, 0.3); border-radius: 45px; display: flex; justify-content: space-between; align-items: center; padding: 0 45px; border: 3px solid rgba(255,255,255,0.2); }
-        .marker-icon { position: absolute; top: -55px; font-size: 70px; transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1.2); z-index: 10; filter: drop-shadow(0 0 20px var(--neon-pink)); }
+
+        /* --- 軌道樣式 --- */
+        .map-track { position: relative; height: 100px; margin: 0 25px; background: rgba(0, 0, 0, 0.3); border-radius: 50px; display: flex; justify-content: space-between; align-items: center; padding: 0 45px; border: 3px solid rgba(255,255,255,0.2); }
+        
+        /* 軌道上的移動角色圖示 */
+        .marker-img { 
+            position: absolute; 
+            top: -25px; 
+            width: 60px; height: 60px; 
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+            filter: drop-shadow(0 0 15px var(--neon-pink));
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1.2); 
+            z-index: 10; 
+        }
+
+        /* 地圖節點容器 */
+        .node { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+        
+        /* --- 更新：獎品圖片圓形樣式 --- */
+        .reward-img {
+            width: 48px; height: 48px; 
+            border-radius: 50%; /* 設定為圓形 */
+            object-fit: cover; /* 確保填滿圓形不變形 */
+            border: 2px solid rgba(255, 255, 255, 0.3); /* 增加一個淺色邊框 */
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.1); /* 增加一點底色 */
+        }
+        
+        .reward-img:hover {
+            transform: scale(1.2) rotate(5deg);
+            border-color: var(--neon-gold); /* 懸停時邊框變金色 */
+            filter: drop-shadow(0 0 12px var(--neon-gold));
+        }
+
+        .node-label { margin-top: 5px; font-size: 10px; color: #aaa; white-space: nowrap; font-weight: bold;}
+
         .ops { display: flex; flex-direction: column; gap: 8px; padding: 0 10px; }
         .btn-op { border: none; padding: 8px; border-radius: 15px; color: white; font-weight: bold; cursor: pointer; font-size: 13px; border: 1px solid rgba(255,255,255,0.3); }
         .btn-att { background: linear-gradient(to bottom, #2ecc71, #27ae60); }
         .btn-bonus { background: linear-gradient(to bottom, #3498db, #2980b9); }
         .btn-sub { background: linear-gradient(to bottom, #e67e22, #d35400); }
+        
         .claim-area { display: flex; flex-direction: column; gap: 5px; padding-left: 15px; border-left: 2px dashed rgba(255,255,255,0.2); }
         .btn-claim { background: linear-gradient(45deg, var(--neon-gold), #f39c12); color: #000; border: 1px solid #fff; padding: 6px; border-radius: 12px; font-size: 11px; font-weight: bold; cursor: pointer; }
+        
         .status-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10, 10, 30, 0.95); padding: 20px; border-top: 4px solid var(--neon-blue); display: flex; justify-content: space-around; align-items: center; font-size: 1.4em; font-weight: bold; color: var(--neon-blue); z-index: 1000; backdrop-filter: blur(15px); }
         .stat-badge { background: var(--neon-blue); color: #000; padding: 5px 25px; border-radius: 30px; }
         .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; color: var(--neon-blue); font-size: 1.5em; }
@@ -49,7 +104,10 @@
     <h1>🚀 小王子與公主- 中壢合一堂 🪐</h1>
     <div class="admin-panel">
         <input type="text" id="stuName" placeholder="探險家姓名">
-        <select id="stuGender"><option value="boy">男生 </option><option value="girl">女生 </option></select>
+        <select id="stuGender">
+            <option value="boy">男生 </option>
+            <option value="girl">女生 </option>
+        </select>
         <input type="text" id="stuBday" placeholder="生日 (05/20)"><input type="text" id="stuPhone" placeholder="電話">
         <button class="btn-main btn-add" onclick="addStudent()">✨ 召喚成員</button>
         <button class="btn-main" style="background:#8e44ad;" onclick="fetchData()">🔄 刷新資料</button>
@@ -64,19 +122,34 @@
 </div>
 
 <script>
+    // --- 【角色圖片設定區】 ---
+    const BOY_IMG = "https://juan-di-cake.github.io/children_school_attend/boy.jpg"; 
+    const GIRL_IMG = "https://juan-di-cake.github.io/children_school_attend/girl.jpg";
+
+    // ▼▼▼ 【獎品圖片設定區】 ▼▼▼
+    const REWARD_ICONS = {
+        start: "https://juan-di-cake.github.io/children_school_attend/start.jpg", 
+        drink: "https://juan-di-cake.github.io/children_school_attend/juice.jpg", 
+        snack: "https://juan-di-cake.github.io/children_school_attend/clip.jpg", 
+        popsicle: "https://juan-di-cake.github.io/children_school_attend/ice.jpg", 
+        icecream: "https://juan-di-cake.github.io/children_school_attend/good_ice.jpg", 
+        sundae: "https://juan-di-cake.github.io/children_school_attend/super_ice.jpg", 
+        toy: "https://juan-di-cake.github.io/children_school_attend/toyz.jpg" 
+    };
+
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyr4KCIYHK3t0ygY8ZLm-NO1j0qgSiNDtxTKQgB0ItG_XyKH15M6DcQmg808HEzbJ31Gw/exec";
 
     let students = [];
     let isDataLoaded = false;
 
     const config = [
-        { pts: 0, icon: "🌹", label: "起點" },
-        { pts: 30, icon: "🧃", label: "鋁箔包" },
-        { pts: 50, icon: "🍪", label: "零食包" },
-        { pts: 100, icon: "🧊", label: "冰棒" },
-        { pts: 200, icon: "🍦", label: "霜淇淋" },
-        { pts: 400, icon: "🍨", label: "冰炫風" },
-        { pts: 500, icon: "🧸", label: "玩具" }
+        { pts: 0, icon: REWARD_ICONS.start, label: "起點" },
+        { pts: 30, icon: REWARD_ICONS.drink, label: "飲料" },
+        { pts: 50, icon: REWARD_ICONS.snack, label: "零食" },
+        { pts: 100, icon: REWARD_ICONS.popsicle, label: "冰棒" },
+        { pts: 200, icon: REWARD_ICONS.icecream, label: "霜淇淋" },
+        { pts: 400, icon: REWARD_ICONS.sundae, label: "冰炫風" },
+        { pts: 500, icon: REWARD_ICONS.toy, label: "玩具" }
     ];
 
     async function fetchData() {
@@ -96,10 +169,8 @@
         document.getElementById('loading').style.display = 'none';
     }
 
-    // --- 【新核心：增量更新指令傳送】 ---
     async function postToCloud(payload) {
         if (!isDataLoaded) return;
-        // 雖然是 no-cors，但後端依然能收到 body 內容
         await fetch(WEB_APP_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -119,7 +190,7 @@
         
         const newStudent = { name, gender, birthday: bday, phone, score: 0, lastDate: "" };
         students.push(newStudent);
-        render(); // 立即更新介面
+        render(); 
         await postToCloud({ type: 'ADD', ...newStudent });
         document.getElementById('stuName').value = '';
     }
@@ -144,7 +215,6 @@
                 s.lastDate = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
             }
             render();
-            // 只傳送受影響的這份資料
             await postToCloud({
                 type: 'UPDATE_SINGLE',
                 name: s.name,
@@ -179,21 +249,27 @@
             const progress = Math.min((s.score / 500) * 100, 100);
             const isAttended = s.lastDate == todayStr;
             const canRedeem = config.filter(r => r.pts > 0 && s.score >= r.pts).reverse();
-            const avatarIcon = (s.gender === 'girl') ? '👸' : '🤴';
+            
+            const avatarUrl = (s.gender === 'girl') ? GIRL_IMG : BOY_IMG;
 
             board.innerHTML += `
                 <div class="student-card ${isAttended ? 'active-today' : ''}">
                     <button class="btn-delete" onclick="removeStudent('${s.name}')">✕</button>
                     <div class="profile-area">
-                        <div class="avatar">${avatarIcon}</div>
+                        <img src="${avatarUrl}" class="avatar-img" onerror="this.src='https://via.placeholder.com/80?text=Avatar'">
                         <div class="name">${s.name}</div>
                         <div class="info-text">🎂 生日: ${s.birthday}</div>
                         <div class="info-text" style="color:var(--neon-blue)">📞 ${s.phone}</div>
                         <div class="score-box">⭐ ${s.score} pt</div>
                     </div>
                     <div class="map-track">
-                        ${config.map(c => `<div class="node">${c.icon}<div class="node-label">${c.pts}pt</div></div>`).join('')}
-                        <div class="marker-icon" style="left: calc(${progress}% - 35px)">${avatarIcon}</div>
+                        ${config.map(c => `
+                            <div class="node">
+                                <img src="${c.icon}" class="reward-img" alt="${c.label}" onerror="this.src='https://via.placeholder.com/45?text=🎁'">
+                                <div class="node-label">${c.pts}pt</div>
+                            </div>
+                        `).join('')}
+                        <img src="${avatarUrl}" class="marker-img" style="left: calc(${progress}% - 30px)" onerror="this.src='https://via.placeholder.com/60?text=P'">
                     </div>
                     <div class="ops">
                         <button class="btn-op btn-att" onclick="updateStudentData('${s.name}', 10, true)">出席點名 +10</button>
@@ -202,7 +278,7 @@
                     </div>
                     <div class="claim-area">
                         ${canRedeem.length > 0 ? canRedeem.map(cr => `
-                            <button class="btn-claim" onclick="claimGift('${s.name}', ${cr.pts}, '${cr.label}')">換${cr.label}</button>
+                            <button class="btn-claim" onclick="claimGift('${s.name}', ${cr.pts}, '${cr.label}')">换${cr.label}</button>
                         `).join('') : '<span style="color:#666; font-size:12px;">探索中...</span>'}
                     </div>
                 </div>`;
@@ -214,5 +290,3 @@
 </script>
 </body>
 </html>
-
-
