@@ -185,7 +185,7 @@
         const name = document.getElementById('stuName').value.trim();
         const gender = document.getElementById('stuGender').value;
         const bday = document.getElementById('stuBday').value || "--/--";
-        const phone =  "未設定";
+        const phone = document.getElementById('stuPhone').value || "未設定";
         if (!name || students.find(s => s.name === name)) { alert("姓名錯誤或重複！"); return; }
         
         const newStudent = { name, gender, birthday: bday, phone, score: 0, lastDate: "" };
