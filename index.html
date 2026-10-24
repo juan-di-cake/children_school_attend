@@ -21,6 +21,8 @@
         .admin-panel input, .admin-panel select { padding: 12px 20px; border-radius: 25px; border: 2px solid var(--neon-blue); background: rgba(10, 10, 25, 0.8); font-size: 16px; color: var(--neon-blue); width: 160px; outline: none; }
         .btn-main { padding: 12px 30px; border-radius: 25px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; color: white; transition: 0.3s; }
         .btn-add { background: linear-gradient(45deg, var(--neon-pink), #bd00ff); }
+        .btn-photo { margin-top: 8px; padding: 8px 16px; border-radius: 25px; border: none; color: white; font-weight: bold; cursor: pointer; background: linear-gradient(45deg, var(--neon-pink), #bd00ff); }
+        .btn-photo-reset { background: #8e44ad; margin-left: 6px; }
 
         /* --- 學生卡片樣式 --- */
         .student-card { display: grid; grid-template-columns: 240px 1fr 180px 160px; align-items: center; background: rgba(255, 255, 255, 0.05); margin-bottom: 25px; padding: 25px; border-radius: 45px; border: 2px solid rgba(255, 255, 255, 0.15); position: relative; }
@@ -111,6 +113,7 @@
         <input type="text" id="stuBday" placeholder="生日 (05/20)"><input type="text" id="stuPhone" placeholder="電話">
         <button class="btn-main btn-add" onclick="addStudent()">召喚成員</button>
         <button class="btn-main" style="background:#8e44ad;" onclick="fetchData()">刷新資料</button>
+        <input type="file" id="avatarFile" accept="image/*" hidden onchange="onAvatarFile(event)">
     </div>
     <div id="playerBoard"></div>
 </div>
@@ -125,6 +128,12 @@
     // --- 【角色圖片設定區】 ---
     const BOY_IMG = "https://juan-di-cake.github.io/children_school_attend/boy.jpg"; 
     const GIRL_IMG = "https://juan-di-cake.github.io/children_school_attend/girl.jpg";
+    const AVATAR_KEY = "csa-avatars-v1";
+    const PRESET_AVATARS = {
+        "卷狄酥": "https://lh3.googleusercontent.com/d/1ofAwbOupfmNQwJzgYFbzBbP1_QHxF1q0"
+    };
+    let avatars = readAvatars();
+    let avatarTarget = "";
 
     // ▼▼▼ 【獎品圖片設定區】 ▼▼▼
     const REWARD_ICONS = {
@@ -199,6 +208,10 @@
         if (!isDataLoaded) return;
         if (confirm(`⚠️ 確定要移除【${targetName}】嗎？`)) {
             students = students.filter(s => s.name !== targetName);
+            if (avatars[targetName]) {
+                delete avatars[targetName];
+                writeAvatars();
+            }
             render();
             await postToCloud({ type: 'DELETE', name: targetName });
         }
@@ -231,6 +244,73 @@
         }
     }
 
+    function readAvatars() {
+        try {
+            const data = JSON.parse(localStorage.getItem(AVATAR_KEY) || "{}");
+            if (!data || typeof data !== "object" || Array.isArray(data)) return {};
+            return data;
+        } catch (e) {
+            return {};
+        }
+    }
+
+    function writeAvatars() {
+        localStorage.setItem(AVATAR_KEY, JSON.stringify(avatars));
+    }
+
+    function defaultAvatar(student) {
+        return student.gender === "girl" ? GIRL_IMG : BOY_IMG;
+    }
+
+    function avatarFor(student) {
+        return avatars[student.name] || PRESET_AVATARS[student.name] || defaultAvatar(student);
+    }
+
+    function pickAvatar(name) {
+        avatarTarget = name;
+        document.getElementById("avatarFile").click();
+    }
+
+    function onAvatarFile(event) {
+        const file = event.target.files && event.target.files[0];
+        event.target.value = "";
+        const name = avatarTarget;
+        if (!file || !name) return;
+        const blobUrl = URL.createObjectURL(file);
+        const img = new Image();
+        img.onload = () => {
+            const size = 128;
+            const canvas = document.createElement("canvas");
+            canvas.width = size;
+            canvas.height = size;
+            const side = Math.min(img.width, img.height);
+            canvas.getContext("2d").drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, size, size);
+            URL.revokeObjectURL(blobUrl);
+            const previous = avatars[name];
+            try {
+                avatars[name] = canvas.toDataURL("image/jpeg", 0.82);
+                writeAvatars();
+                render();
+            } catch (e) {
+                if (previous) avatars[name] = previous;
+                else delete avatars[name];
+                alert("這臺電腦存不下這張照片");
+            }
+        };
+        img.onerror = () => {
+            URL.revokeObjectURL(blobUrl);
+            alert("這張圖讀不了，換一張看看");
+        };
+        img.src = blobUrl;
+    }
+
+    function resetAvatar(name) {
+        if (!avatars[name]) return;
+        delete avatars[name];
+        writeAvatars();
+        render();
+    }
+
     function updateStats() {
         const now = new Date();
         const dateStr = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
@@ -250,13 +330,21 @@
             const isAttended = s.lastDate == todayStr;
             const canRedeem = config.filter(r => r.pts > 0 && s.score >= r.pts).reverse();
             
-            const avatarUrl = (s.gender === 'girl') ? GIRL_IMG : BOY_IMG;
+            const avatarUrl = avatarFor(s);
+            const fallbackUrl = defaultAvatar(s);
+            const resetButton = avatars[s.name]
+                ? `<button type="button" class="btn-photo btn-photo-reset" onclick="resetAvatar('${s.name}')">用預設</button>`
+                : "";
 
             board.innerHTML += `
                 <div class="student-card ${isAttended ? 'active-today' : ''}">
                     <button class="btn-delete" onclick="removeStudent('${s.name}')">✕</button>
                     <div class="profile-area">
-                        <img src="${avatarUrl}" class="avatar-img" onerror="this.src='https://via.placeholder.com/80?text=Avatar'">
+                        <img src="${avatarUrl}" class="avatar-img" onerror="this.onerror=null;this.src='${fallbackUrl}'">
+                        <div>
+                            <button type="button" class="btn-photo" onclick="pickAvatar('${s.name}')">換照片</button>
+                            ${resetButton}
+                        </div>
                         <div class="name">${s.name}</div>
                         <div class="info-text">🎂 生日: ${s.birthday}</div>
                         <div class="info-text" style="color:var(--neon-blue)">📞 ${s.phone}</div>
@@ -269,7 +357,7 @@
                                 <div class="node-label">${c.pts}pt</div>
                             </div>
                         `).join('')}
-                        <img src="${avatarUrl}" class="marker-img" style="left: calc(${progress}% - 30px)" onerror="this.src='https://via.placeholder.com/60?text=P'">
+                        <img src="${avatarUrl}" class="marker-img" style="left: calc(${progress}% - 30px)" onerror="this.onerror=null;this.src='${fallbackUrl}'">
                     </div>
                     <div class="ops">
                         <button class="btn-op btn-att" onclick="updateStudentData('${s.name}', 10, true)">出席點名 +10</button>
