@@ -2,97 +2,90 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>小王子與公主 - 中壢合一堂 (全圖片版)</title>
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Mali:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* --- 基礎設定 --- */
         * { font-family: 'ZCOOL KuaiLe', 'Mali', 'Microsoft JhengHei', cursive; box-sizing: border-box; }
         :root { --neon-pink: #ff007f; --neon-blue: #00d4ff; --neon-gold: #ffd700; --cute-green: #2ecc71; --space-black: #050505; }
-        body { background: radial-gradient(ellipse at bottom, #1B2735 0%, #090a0f 100%); background-color: var(--space-black); margin: 0; padding: 20px; color: #fff; min-height: 100vh; overflow-x: hidden; }
-        
+        body { background: radial-gradient(ellipse at bottom, #1B2735 0%, #090a0f 100%); background-color: var(--space-black); margin: 0; padding: 20px 20px 140px; color: #fff; min-height: 100vh; overflow-x: hidden; }
+
         .stars-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
-        .star-layer { position: absolute; width: 100%; height: 100%; background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px); background-size: 550px 550px; animation: space-drift 120s linear infinite; }
-        @keyframes space-drift { from { transform: translateY(0); } to { transform: translateY(-1000px); } }
-        
-        .container { max-width: 1550px; margin: auto; background: rgba(20, 20, 30, 0.4); backdrop-filter: blur(25px); padding: 40px; border-radius: 60px; border: 3px solid rgba(0, 212, 255, 0.3); box-shadow: 0 0 60px rgba(0, 132, 255, 0.2); margin-bottom: 120px; }
+        .star-layer { position: absolute; width: 100%; height: 100%; background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px); background-size: 550px 550px; }
+
+        .container { max-width: 1550px; margin: auto; background: rgba(16, 18, 32, 0.92); padding: 40px; border-radius: 60px; border: 3px solid rgba(0, 212, 255, 0.3); box-shadow: 0 0 40px rgba(0, 132, 255, 0.25); }
         h1 { text-align: center; font-size: 3.5em; margin: 0 0 30px 0; background: linear-gradient(to right, var(--neon-pink), #bd00ff, var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(189, 0, 255, 0.6)); }
 
-        .admin-panel { background: rgba(0, 0, 0, 0.5); padding: 30px; border-radius: 40px; margin-bottom: 40px; border: 2px solid var(--neon-blue); display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-        .admin-panel input, .admin-panel select { padding: 12px 20px; border-radius: 25px; border: 2px solid var(--neon-blue); background: rgba(10, 10, 25, 0.8); font-size: 16px; color: var(--neon-blue); width: 160px; outline: none; }
-        .btn-main { padding: 12px 30px; border-radius: 25px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; color: white; transition: 0.3s; }
+        .admin-panel { background: rgba(0, 0, 0, 0.5); padding: 14px 20px; border-radius: 28px; margin-bottom: 28px; border: 2px solid var(--neon-blue); display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; }
+        .admin-panel .btn-main { padding: 10px 18px; font-size: 16px; border-radius: 16px; }
+        .btn-main { padding: 12px 30px; border-radius: 25px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; color: white; transition: opacity 0.2s; }
         .btn-add { background: linear-gradient(45deg, var(--neon-pink), #bd00ff); }
-
-        /* --- 學生卡片樣式 --- */
-        .student-card { display: grid; grid-template-columns: 240px 1fr 180px 160px; align-items: center; background: rgba(255, 255, 255, 0.05); margin-bottom: 25px; padding: 25px; border-radius: 45px; border: 2px solid rgba(255, 255, 255, 0.15); position: relative; }
-        .active-today { border-color: var(--cute-green); box-shadow: 0 0 30px rgba(46, 204, 113, 0.4); }
-        .btn-delete { position: absolute; top: 15px; left: 15px; background: rgba(255, 77, 77, 0.2); color: #ff4d4d; border: 2px solid #ff4d4d; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; z-index: 5; }
-        
-        .profile-area { text-align: center; border-right: 2px solid rgba(255,255,255,0.2); padding-right: 15px; }
-        
-        /* 角色頭像圖片樣式 */
-        .avatar-img { 
-            width: 80px; height: 80px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            border: 3px solid var(--neon-blue);
-            filter: drop-shadow(0 0 10px var(--neon-blue));
-            animation: float 3s infinite ease-in-out; 
-        }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-        .name { font-size: 26px; font-weight: bold; color: #fff; text-shadow: 0 0 10px var(--neon-blue); margin-top: 10px; }
-        .score-box { background: linear-gradient(45deg, var(--neon-gold), #f39c12); padding: 6px 15px; border-radius: 20px; color: #000; font-weight: bold; margin-top: 10px; display: inline-block; }
-
-        /* --- 軌道樣式 --- */
-        .map-track { position: relative; height: 100px; margin: 0 25px; background: rgba(0, 0, 0, 0.3); border-radius: 50px; display: flex; justify-content: space-between; align-items: center; padding: 0 45px; border: 3px solid rgba(255,255,255,0.2); }
-        
-        /* 軌道上的移動角色圖示 */
-        .marker-img { 
-            position: absolute; 
-            top: -25px; 
-            width: 60px; height: 60px; 
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #fff;
-            filter: drop-shadow(0 0 15px var(--neon-pink));
-            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1.2); 
-            z-index: 10; 
-        }
-
-        /* 地圖節點容器 */
-        .node { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
-        
-        /* --- 更新：獎品圖片圓形樣式 --- */
-        .reward-img {
-            width: 48px; height: 48px; 
-            border-radius: 50%; /* 設定為圓形 */
-            object-fit: cover; /* 確保填滿圓形不變形 */
-            border: 2px solid rgba(255, 255, 255, 0.3); /* 增加一個淺色邊框 */
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            background-color: rgba(255, 255, 255, 0.1); /* 增加一點底色 */
-        }
-        
-        .reward-img:hover {
-            transform: scale(1.2) rotate(5deg);
-            border-color: var(--neon-gold); /* 懸停時邊框變金色 */
-            filter: drop-shadow(0 0 12px var(--neon-gold));
-        }
-
-        .node-label { margin-top: 5px; font-size: 10px; color: #aaa; white-space: nowrap; font-weight: bold;}
-
-        .ops { display: flex; flex-direction: column; gap: 8px; padding: 0 10px; }
-        .btn-op { border: none; padding: 8px; border-radius: 15px; color: white; font-weight: bold; cursor: pointer; font-size: 13px; border: 1px solid rgba(255,255,255,0.3); }
-        .btn-att { background: linear-gradient(to bottom, #2ecc71, #27ae60); }
+        .btn-refresh { background: #8e44ad; }
+        .btn-roster { background: linear-gradient(to bottom, #2ecc71, #27ae60); }
         .btn-bonus { background: linear-gradient(to bottom, #3498db, #2980b9); }
         .btn-sub { background: linear-gradient(to bottom, #e67e22, #d35400); }
-        
-        .claim-area { display: flex; flex-direction: column; gap: 5px; padding-left: 15px; border-left: 2px dashed rgba(255,255,255,0.2); }
-        .btn-claim { background: linear-gradient(45deg, var(--neon-gold), #f39c12); color: #000; border: 1px solid #fff; padding: 6px; border-radius: 12px; font-size: 11px; font-weight: bold; cursor: pointer; }
-        
-        .status-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10, 10, 30, 0.95); padding: 20px; border-top: 4px solid var(--neon-blue); display: flex; justify-content: space-around; align-items: center; font-size: 1.4em; font-weight: bold; color: var(--neon-blue); z-index: 1000; backdrop-filter: blur(15px); }
+        .btn-danger { background: linear-gradient(to bottom, #e74c3c, #c0392b); }
+        .btn-cancel { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.35); }
+        button:disabled { opacity: 0.45; cursor: wait; }
+
+        .modal { position: fixed; inset: 0; z-index: 2000; background: rgba(0, 0, 0, 0.72); display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .modal[hidden] { display: none; }
+        .modal-card { width: min(420px, 100%); background: #12141f; border: 2px solid var(--neon-blue); border-radius: 28px; padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+        .modal-card.wide { width: min(560px, 100%); }
+        .modal-card h2 { margin: 0; text-align: center; color: var(--neon-blue); }
+        .field { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: #ddd; }
+        .field input, .field select { padding: 12px 16px; border-radius: 16px; border: 2px solid var(--neon-blue); background: rgba(10, 10, 25, 0.8); font-size: 16px; color: var(--neon-blue); width: 100%; outline: none; }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+        .info-text { font-size: 16px; color: #ddd; margin: 0; text-align: center; }
+        .phone-toggle { display: block; margin: 0 auto; background: none; border: none; color: var(--neon-blue); cursor: pointer; font-size: 16px; padding: 0; }
+        .detail-photo { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; border: 3px solid var(--neon-blue); display: block; margin: 0 auto; box-shadow: 0 0 12px var(--neon-blue); background: rgba(255,255,255,0.08); }
+        .avatar-actions { margin: 0; }
+        .detail-photo.is-today { border-color: var(--cute-green); box-shadow: 0 0 12px rgba(46, 204, 113, 0.85); }
+        .pick-list { display: flex; flex-direction: column; gap: 8px; max-height: min(50vh, calc(100vh - 320px)); overflow: auto; }
+        .pick-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 10px; align-items: center; text-align: left; background: rgba(255,255,255,0.06); color: white; border: 2px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 12px 14px; cursor: pointer; font-size: 18px; width: 100%; }
+        .roster-row { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 8px; align-items: center; }
+        .roster-row.no-check { grid-template-columns: minmax(0, 1fr); }
+        .batch-check { width: 22px; height: 22px; margin: 0; accent-color: #2ecc71; cursor: pointer; }
+        .pick-row.score-row { grid-template-columns: minmax(0, 1fr) auto; }
+        .pick-row.is-today { border-color: var(--cute-green); box-shadow: 0 0 12px rgba(46, 204, 113, 0.35); }
+        .pick-name { overflow: hidden; text-overflow: ellipsis; }
+        .pick-score { color: var(--neon-gold); }
+        .pick-state { font-size: 14px; color: #ddd; }
+
+        .map-scroll { overflow-x: auto; width: 100%; }
+        .map-board { width: 1100px; margin: 0 auto; }
+        .map-art-wrap { position: relative; }
+        .map-art { width: 100%; height: auto; display: block; border-radius: 28px; }
+        .planet-labels { position: absolute; left: 0; right: 0; top: 64%; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); pointer-events: none; }
+        .planet-grid { position: absolute; left: 0; right: 0; top: 2%; z-index: 1; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); margin: 0; }
+        .planet-col { display: flex; flex-direction: column; align-items: center; min-width: 0; padding: 0 4px; }
+        .planet-label { width: fit-content; max-width: 100%; margin: 0 auto; background: rgba(5, 8, 20, 0.62); border-radius: 12px; padding: 4px 8px; text-align: center; line-height: 1.15; }
+        .planet-label strong { display: block; font-size: 18px; color: #fff; text-shadow: 0 2px 6px #000; }
+        .planet-label span { display: block; font-size: 13px; color: var(--neon-gold); }
+        .token-col { display: flex; flex-wrap: wrap; justify-content: center; align-content: flex-start; gap: 2px 4px; width: 100%; }
+        .token-btn { width: 52px; max-width: 100%; background: none; border: none; color: white; cursor: pointer; display: flex; flex-direction: column; align-items: center; padding: 0; }
+        .token-btn img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 3px solid var(--neon-blue); box-shadow: 0 0 10px var(--neon-blue); background: rgba(255,255,255,0.08); }
+        .token-btn.is-today img { border-color: var(--cute-green); box-shadow: 0 0 12px rgba(46, 204, 113, 0.85); }
+        .token-name { font-size: 12px; margin-top: 1px; line-height: 1.1; word-break: break-all; text-shadow: 0 1px 3px #000, 0 0 6px #000; }
+        .token-score { font-size: 10px; color: var(--neon-gold); text-shadow: 0 1px 3px #000; line-height: 1.1; }
+        .empty-board { text-align: center; color: #ddd; margin: 0; }
+        .map-art-wrap .empty-board { position: absolute; left: 0; right: 0; top: 8%; text-shadow: 0 1px 3px #000; }
+
+        .status-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #0a0a1e; padding: 20px; border-top: 4px solid var(--neon-blue); display: flex; justify-content: space-around; align-items: center; gap: 12px; font-size: 1.4em; font-weight: bold; color: var(--neon-blue); z-index: 1000; }
         .stat-badge { background: var(--neon-blue); color: #000; padding: 5px 25px; border-radius: 30px; }
+        .sync-status { font-size: 0.7em; color: var(--neon-gold); }
         .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; color: var(--neon-blue); font-size: 1.5em; }
+
+        @media (max-width: 900px) {
+            body { padding: 10px 10px 160px; }
+            .container { padding: 16px; border-radius: 24px; }
+            h1 { font-size: 1.35em; line-height: 1.35; }
+            .admin-panel { padding: 16px; border-radius: 24px; }
+            .modal-actions .btn-main { width: 100%; }
+            .modal-actions { flex-direction: column-reverse; }
+            .roster-actions { flex-direction: column; }
+            .status-bar { flex-wrap: wrap; justify-content: center; font-size: 1em; padding: 12px; }
+        }
     </style>
 </head>
 <body>
@@ -103,191 +96,721 @@
 <div class="container">
     <h1>小王子與公主- 中壢合一堂 </h1>
     <div class="admin-panel">
-        <input type="text" id="stuName" placeholder="探險家姓名">
-        <select id="stuGender">
-            <option value="boy">男生 </option>
-            <option value="girl">女生 </option>
-        </select>
-        <input type="text" id="stuBday" placeholder="生日 (05/20)"><input type="text" id="stuPhone" placeholder="電話">
-        <button class="btn-main btn-add" onclick="addStudent()">召喚成員</button>
-        <button class="btn-main" style="background:#8e44ad;" onclick="fetchData()">刷新資料</button>
+        <button type="button" class="btn-main btn-roster" id="rosterBtn">點名冊</button>
+        <button type="button" class="btn-main btn-bonus" id="bonusBtn">加分</button>
+        <button type="button" class="btn-main btn-sub" id="subBtn">扣分</button>
+        <button type="button" class="btn-main btn-add" id="addBtn">召喚成員</button>
+        <button type="button" class="btn-main btn-refresh" id="refreshBtn">刷新資料</button>
     </div>
-    <div id="playerBoard"></div>
+    <div class="map-scroll" id="mapScroll">
+        <div class="map-board">
+            <div class="map-art-wrap">
+                <img class="map-art" src="universe-map.jpg" alt="宇宙獎品地圖">
+                <p class="empty-board" id="emptyNote" hidden>還沒有成員</p>
+                <div class="planet-grid" id="planetGrid"></div>
+                <div class="planet-labels" id="planetLabels"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addModal" class="modal" hidden>
+    <form id="addForm" class="modal-card">
+        <h2>召喚成員</h2>
+        <label class="field">探險家姓名
+            <input type="text" id="stuName" autocomplete="off">
+        </label>
+        <label class="field">性別
+            <select id="stuGender">
+                <option value="boy">男生</option>
+                <option value="girl">女生</option>
+            </select>
+        </label>
+        <label class="field">生日
+            <input type="text" id="stuBday" placeholder="05/20" autocomplete="off">
+        </label>
+        <label class="field">電話
+            <input type="text" id="stuPhone" autocomplete="off">
+        </label>
+        <div class="modal-actions">
+            <button type="button" class="btn-main btn-cancel" id="cancelAdd">取消</button>
+            <button type="submit" class="btn-main btn-add" id="submitAdd">召喚成員</button>
+        </div>
+    </form>
+</div>
+
+<div id="rosterModal" class="modal" hidden>
+    <div class="modal-card wide">
+        <h2>點名冊</h2>
+        <div class="pick-list" id="rosterList"></div>
+        <div class="modal-actions roster-actions">
+            <button type="button" class="btn-main btn-cancel" id="selectAbsent">選全部未到</button>
+            <button type="button" class="btn-main btn-roster" id="markSelected" disabled>點名選取的人</button>
+            <button type="button" class="btn-main btn-cancel" id="closeRoster">關閉</button>
+        </div>
+    </div>
+</div>
+
+<div id="scoreModal" class="modal" hidden>
+    <div class="modal-card wide">
+        <h2 id="scoreTitle">加分</h2>
+        <div class="pick-list" id="scoreList"></div>
+        <div class="modal-actions">
+            <button type="button" class="btn-main btn-cancel" id="closeScore">關閉</button>
+        </div>
+    </div>
+</div>
+
+<div id="detailModal" class="modal" hidden>
+    <div class="modal-card">
+        <img class="detail-photo" id="detailAvatar" alt="" width="96" height="96">
+        <h2 id="detailName"></h2>
+        <p class="info-text" id="detailGap"></p>
+        <p class="info-text" id="detailBday"></p>
+        <button type="button" class="phone-toggle" id="detailPhone"></button>
+        <div class="admin-panel avatar-actions">
+            <button type="button" class="btn-main btn-add" id="changeAvatar">換大頭貼</button>
+            <button type="button" class="btn-main btn-refresh" id="resetAvatar" hidden>用預設</button>
+        </div>
+        <input type="file" id="avatarFile" accept="image/*" hidden>
+        <div class="modal-actions">
+            <button type="button" class="btn-main btn-cancel" id="closeDetail">關閉</button>
+            <button type="button" class="btn-main btn-danger" id="detailDelete">移除</button>
+        </div>
+    </div>
 </div>
 
 <div class="status-bar">
     <div>📅 星曆日期：<span id="todayDate" style="color:#fff;"></span></div>
     <div>🧑‍🤝‍🧑 今日報到：<span class="stat-badge" id="totalAtt">0</span></div>
-    <div>🎁 可兌換：<span class="stat-badge" id="canClaimCount" style="background:var(--neon-gold);">0</span></div>
+    <div class="sync-status" id="syncStatus" hidden></div>
 </div>
 
 <script>
-    // --- 【角色圖片設定區】 ---
-    const BOY_IMG = "https://juan-di-cake.github.io/children_school_attend/boy.jpg"; 
-    const GIRL_IMG = "https://juan-di-cake.github.io/children_school_attend/girl.jpg";
-
-    // ▼▼▼ 【獎品圖片設定區】 ▼▼▼
-    const REWARD_ICONS = {
-        start: "https://juan-di-cake.github.io/children_school_attend/start.jpg", 
-        drink: "https://juan-di-cake.github.io/children_school_attend/juice.jpg", 
-        snack: "https://juan-di-cake.github.io/children_school_attend/clip.jpg", 
-        popsicle: "https://juan-di-cake.github.io/children_school_attend/ice.jpg", 
-        icecream: "https://juan-di-cake.github.io/children_school_attend/good_ice.jpg", 
-        sundae: "https://juan-di-cake.github.io/children_school_attend/super_ice.jpg", 
-        toy: "https://juan-di-cake.github.io/children_school_attend/toyz.jpg" 
-    };
-
+    const CACHE_KEY = "csa-students-v1";
+    const AVATAR_KEY = "csa-avatars-v1";
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyr4KCIYHK3t0ygY8ZLm-NO1j0qgSiNDtxTKQgB0ItG_XyKH15M6DcQmg808HEzbJ31Gw/exec";
 
-    let students = [];
-    let isDataLoaded = false;
-
     const config = [
-        { pts: 0, icon: REWARD_ICONS.start, label: "起點" },
-        { pts: 30, icon: REWARD_ICONS.drink, label: "飲料" },
-        { pts: 50, icon: REWARD_ICONS.snack, label: "零食" },
-        { pts: 100, icon: REWARD_ICONS.popsicle, label: "冰棒" },
-        { pts: 200, icon: REWARD_ICONS.icecream, label: "霜淇淋" },
-        { pts: 400, icon: REWARD_ICONS.sundae, label: "冰炫風" },
-        { pts: 500, icon: REWARD_ICONS.toy, label: "玩具" }
+        { pts: 0, key: "start", label: "起點" },
+        { pts: 30, key: "drink", label: "飲料" },
+        { pts: 50, key: "snack", label: "零食" },
+        { pts: 100, key: "popsicle", label: "冰棒" },
+        { pts: 200, key: "icecream", label: "霜淇淋" },
+        { pts: 400, key: "sundae", label: "冰炫風" },
+        { pts: 500, key: "toy", label: "玩具" }
     ];
 
-    async function fetchData() {
-        isDataLoaded = false;
-        document.getElementById('loading').style.display = 'flex';
+    let students = [];
+    let avatars = readAvatars();
+    let isDataLoaded = false;
+    let localRevision = 0;
+    let addInFlight = false;
+    let scoreMode = "bonus";
+    let detailName = "";
+    let batchInFlight = false;
+    const batchSelected = new Set();
+    const pendingNames = new Set();
+    const revealedPhones = new Set();
+    const saveTail = new Map();
+
+    function escapeHtml(value) {
+        return String(value ?? "").replace(/[&<>"']/g, (ch) => ({
+            "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+        }[ch]));
+    }
+
+    function todayStr() {
+        const now = new Date();
+        return formatDate(now.getFullYear(), now.getMonth() + 1, now.getDate());
+    }
+
+    function formatDate(year, month, day) {
+        return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    }
+
+    function normalizeDate(value) {
+        const raw = String(value ?? "").trim();
+        if (!raw) return "";
+        const parts = raw.split(/[-/]/);
+        if (parts.length !== 3) return raw;
+        const [year, month, day] = parts;
+        if (!year || !month || !day || year.length < 4) return raw;
+        return formatDate(year, month, day);
+    }
+
+    function normalizeStudent(item) {
+        return {
+            name: item.name ?? item.姓名 ?? "",
+            gender: item.gender ?? item.性別 ?? "boy",
+            birthday: item.birthday ?? item.生日 ?? "--/--",
+            phone: item.phone ?? item.電話 ?? "未設定",
+            score: parseInt(item.score ?? item.分數, 10) || 0,
+            lastDate: normalizeDate(item.lastDate ?? item.最後出席日期 ?? "")
+        };
+    }
+
+    function readCache() {
         try {
-            const response = await fetch(WEB_APP_URL);
-            const data = await response.json();
-            students = data.map(item => ({
-                name: item.姓名, gender: item.性別, birthday: item.生日,
-                phone: item.電話, score: parseInt(item.分數) || 0,
-                lastDate: item.最後出席日期
-            }));
-            isDataLoaded = true;
-            render();
-        } catch (e) { alert("連線失敗！"); }
-        document.getElementById('loading').style.display = 'none';
+            const raw = localStorage.getItem(CACHE_KEY);
+            if (!raw) return null;
+            const data = JSON.parse(raw);
+            if (!Array.isArray(data)) return null;
+            return data.map(normalizeStudent);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function writeCache() {
+        localStorage.setItem(CACHE_KEY, JSON.stringify(students));
+    }
+
+    function touchLocal() {
+        localRevision += 1;
+        writeCache();
+    }
+
+    function setSyncStatus(text) {
+        const el = document.getElementById("syncStatus");
+        el.textContent = text;
+        el.hidden = !text;
+    }
+
+    function readAvatars() {
+        try {
+            const raw = localStorage.getItem(AVATAR_KEY);
+            if (!raw) return {};
+            const data = JSON.parse(raw);
+            if (!data || typeof data !== "object" || Array.isArray(data)) return {};
+            return data;
+        } catch (e) {
+            return {};
+        }
+    }
+
+    function writeAvatars() {
+        localStorage.setItem(AVATAR_KEY, JSON.stringify(avatars));
+    }
+
+    function defaultAvatar(student) {
+        return student.gender === "girl" ? "girl.jpg" : "boy.jpg";
+    }
+
+    function avatarUrl(student) {
+        return avatars[student.name] || defaultAvatar(student);
+    }
+
+    function fileToAvatar(file) {
+        return new Promise((resolve, reject) => {
+            const url = URL.createObjectURL(file);
+            const img = new Image();
+            img.onload = () => {
+                const size = 128;
+                const canvas = document.createElement("canvas");
+                canvas.width = size;
+                canvas.height = size;
+                const side = Math.min(img.width, img.height);
+                const sx = (img.width - side) / 2;
+                const sy = (img.height - side) / 2;
+                canvas.getContext("2d").drawImage(img, sx, sy, side, side, 0, 0, size, size);
+                URL.revokeObjectURL(url);
+                resolve(canvas.toDataURL("image/jpeg", 0.82));
+            };
+            img.onerror = () => {
+                URL.revokeObjectURL(url);
+                reject(new Error("unreadable"));
+            };
+            img.src = url;
+        });
+    }
+
+    function maskPhone(phone) {
+        const raw = String(phone ?? "");
+        if (!raw || raw === "未設定") return raw || "未設定";
+        const digits = raw.replace(/\D/g, "");
+        if (digits.length <= 3) return "•••";
+        return `•••${digits.slice(-3)}`;
+    }
+
+    function phoneLabel(student) {
+        const shown = revealedPhones.has(student.name) ? student.phone : maskPhone(student.phone);
+        return `📞 ${shown}`;
+    }
+
+    function currentRewardKey(score) {
+        let key = config[0].key;
+        config.forEach((reward) => {
+            if (score >= reward.pts) key = reward.key;
+        });
+        return key;
+    }
+
+    function gapText(score) {
+        const next = config.find((reward) => reward.pts > score);
+        if (!next) return "已到最高：玩具";
+        return `還差 ${next.pts - score} 分到${next.label}`;
+    }
+
+    function tokenHtml(student) {
+        const attended = student.lastDate === todayStr() ? " is-today" : "";
+        const safeName = escapeHtml(student.name);
+        return `
+            <button type="button" class="token-btn${attended}" data-action="detail" data-name="${safeName}">
+                <img src="${avatarUrl(student)}" data-fallback="${defaultAvatar(student)}" onerror="this.onerror=null;this.src=this.dataset.fallback" width="54" height="54" alt="" decoding="async">
+                <span class="token-name">${safeName}</span>
+                <span class="token-score">${student.score} pt</span>
+            </button>`;
+    }
+
+    function renderMap() {
+        const columns = config.map((reward) => {
+            const here = students.filter((student) => currentRewardKey(student.score) === reward.key);
+            return `
+                <div class="planet-col">
+                    <div class="token-col">${here.map(tokenHtml).join("")}</div>
+                </div>`;
+        }).join("");
+        const labels = config.map((reward) => `
+            <div class="planet-label">
+                <strong>${escapeHtml(reward.label)}</strong>
+                <span>${reward.pts} pt</span>
+            </div>`).join("");
+        document.getElementById("planetGrid").innerHTML = columns;
+        document.getElementById("planetLabels").innerHTML = labels;
+        document.getElementById("emptyNote").hidden = students.length > 0;
+    }
+
+    function pickRow(student, withState) {
+        const here = student.lastDate === todayStr();
+        const busy = pendingNames.has(student.name) ? " disabled" : "";
+        const todayClass = withState && here ? " is-today" : "";
+        const scoreClass = withState ? "" : " score-row";
+        const state = withState ? `<span class="pick-state">${here ? "已到" : "未到"}</span>` : "";
+        return `
+            <button type="button" class="pick-row${todayClass}${scoreClass}" data-name="${escapeHtml(student.name)}"${busy}>
+                <span class="pick-name">${escapeHtml(student.name)}</span>
+                <span class="pick-score">${student.score} pt</span>
+                ${state}
+            </button>`;
+    }
+
+    function renderPeople(listId, withState) {
+        const list = document.getElementById(listId);
+        list.innerHTML = students.length
+            ? students.map((student) => pickRow(student, withState)).join("")
+            : '<div class="empty-board">還沒有成員</div>';
+    }
+
+    function renderRoster() {
+        const list = document.getElementById("rosterList");
+        [...batchSelected].forEach((name) => {
+            const student = students.find((item) => item.name === name);
+            if (!student || student.lastDate === todayStr()) batchSelected.delete(name);
+        });
+        list.innerHTML = students.length
+            ? students.map((student) => {
+                const here = student.lastDate === todayStr();
+                const box = here
+                    ? ""
+                    : `<input type="checkbox" class="batch-check" data-batch="${escapeHtml(student.name)}"${batchSelected.has(student.name) ? " checked" : ""} aria-label="選取 ${escapeHtml(student.name)}">`;
+                return `<div class="roster-row${here ? " no-check" : ""}">${box}${pickRow(student, true)}</div>`;
+            }).join("")
+            : '<div class="empty-board">還沒有成員</div>';
+        updateBatchButtons();
+    }
+
+    function absentStudents() {
+        return students.filter((student) => student.lastDate !== todayStr());
+    }
+
+    function selectedAbsentNames() {
+        return absentStudents()
+            .filter((student) => batchSelected.has(student.name) && !pendingNames.has(student.name))
+            .map((student) => student.name);
+    }
+
+    function updateBatchButtons() {
+        const absent = absentStudents();
+        const selected = selectedAbsentNames();
+        const markButton = document.getElementById("markSelected");
+        const selectButton = document.getElementById("selectAbsent");
+        markButton.textContent = selected.length ? `點名選取的人（${selected.length}）` : "點名選取的人";
+        markButton.disabled = selected.length === 0 || batchInFlight;
+        const allSelected = absent.length > 0 && absent.every((student) => batchSelected.has(student.name));
+        selectButton.textContent = allSelected ? "取消全選" : "選全部未到";
+        selectButton.disabled = absent.length === 0 || batchInFlight;
+    }
+
+    function renderScoreList() {
+        renderPeople("scoreList", false);
+    }
+
+    function updateStats() {
+        document.getElementById("todayDate").textContent = todayStr();
+        document.getElementById("totalAtt").textContent = students.filter((student) => student.lastDate === todayStr()).length;
+    }
+
+    function fillDetail() {
+        const student = students.find((item) => item.name === detailName);
+        if (!student) {
+            closeDetail();
+            return;
+        }
+        const photo = document.getElementById("detailAvatar");
+        photo.src = avatarUrl(student);
+        photo.classList.toggle("is-today", student.lastDate === todayStr());
+        document.getElementById("resetAvatar").hidden = !avatars[student.name];
+        document.getElementById("detailName").textContent = student.name;
+        document.getElementById("detailGap").textContent = gapText(student.score);
+        document.getElementById("detailBday").textContent = `🎂 生日: ${student.birthday}`;
+        const phoneButton = document.getElementById("detailPhone");
+        phoneButton.textContent = phoneLabel(student);
+        phoneButton.disabled = pendingNames.has(student.name);
+        document.getElementById("detailDelete").disabled = pendingNames.has(student.name);
+    }
+
+    function render() {
+        renderMap();
+        updateStats();
+        if (!document.getElementById("rosterModal").hidden) renderRoster();
+        if (!document.getElementById("scoreModal").hidden) renderScoreList();
+        if (!document.getElementById("detailModal").hidden) fillDetail();
+    }
+
+    function enqueueSave(name, task) {
+        const previous = saveTail.get(name) || Promise.resolve();
+        const run = previous.then(task, task);
+        saveTail.set(name, run.then(() => {}, () => {}));
+        return run;
     }
 
     async function postToCloud(payload) {
         if (!isDataLoaded) return;
         await fetch(WEB_APP_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
-        updateStats();
+    }
+
+    async function fetchData() {
+        const revisionAtStart = localRevision;
+        const showOverlay = !isDataLoaded;
+        if (showOverlay) document.getElementById("loading").style.display = "flex";
+        else setSyncStatus("同步中");
+        try {
+            const response = await fetch(WEB_APP_URL);
+            if (!response.ok) throw new Error("bad status");
+            const data = await response.json();
+            if (localRevision !== revisionAtStart) {
+                setSyncStatus("已保留本機更新");
+                return;
+            }
+            students = (Array.isArray(data) ? data : []).map(normalizeStudent);
+            isDataLoaded = true;
+            writeCache();
+            render();
+            setSyncStatus("");
+        } catch (e) {
+            if (!isDataLoaded) alert("連線失敗！");
+            else setSyncStatus("同步失敗，顯示本機資料");
+        } finally {
+            document.getElementById("loading").style.display = "none";
+        }
     }
 
     async function addStudent() {
-        if (!isDataLoaded) return;
-        const name = document.getElementById('stuName').value.trim();
-        const gender = document.getElementById('stuGender').value;
-        const bday = document.getElementById('stuBday').value || "--/--";
-        const phone = document.getElementById('stuPhone').value || "未設定";
-        if (!name || students.find(s => s.name === name)) { alert("姓名錯誤或重複！"); return; }
-        
-        const newStudent = { name, gender, birthday: bday, phone, score: 0, lastDate: "" };
+        if (!isDataLoaded || addInFlight) return;
+        const name = document.getElementById("stuName").value.trim();
+        const gender = document.getElementById("stuGender").value;
+        const birthday = document.getElementById("stuBday").value || "--/--";
+        const phone = document.getElementById("stuPhone").value || "未設定";
+        if (!name || students.some((student) => student.name === name)) {
+            alert("姓名錯誤或重複！");
+            return;
+        }
+        const newStudent = { name, gender, birthday, phone, score: 0, lastDate: "" };
         students.push(newStudent);
-        render(); 
-        await postToCloud({ type: 'ADD', ...newStudent });
-        document.getElementById('stuName').value = '';
+        touchLocal();
+        render();
+        clearAddForm();
+        closeAddModal();
+        const addBtn = document.getElementById("addBtn");
+        addInFlight = true;
+        addBtn.disabled = true;
+        try {
+            await postToCloud({ type: "ADD", ...newStudent });
+        } catch (e) {
+            setSyncStatus("儲存失敗");
+        } finally {
+            addInFlight = false;
+            addBtn.disabled = false;
+        }
     }
 
     async function removeStudent(targetName) {
-        if (!isDataLoaded) return;
-        if (confirm(`⚠️ 確定要移除【${targetName}】嗎？`)) {
-            students = students.filter(s => s.name !== targetName);
+        if (!isDataLoaded || pendingNames.has(targetName)) return;
+        if (!confirm(`⚠️ 確定要移除【${targetName}】嗎？`)) return;
+        pendingNames.add(targetName);
+        students = students.filter((student) => student.name !== targetName);
+        revealedPhones.delete(targetName);
+        if (avatars[targetName]) {
+            delete avatars[targetName];
+            writeAvatars();
+        }
+        if (detailName === targetName) closeDetail();
+        touchLocal();
+        render();
+        try {
+            await enqueueSave(targetName, () => postToCloud({ type: "DELETE", name: targetName }));
+        } catch (e) {
+            setSyncStatus("儲存失敗");
+        } finally {
+            pendingNames.delete(targetName);
+        }
+    }
+
+    async function updateStudentData(targetName, scoreChange, attendanceMode) {
+        if (!isDataLoaded || pendingNames.has(targetName)) return;
+        const student = students.find((item) => item.name === targetName);
+        if (!student) return;
+        student.score += scoreChange;
+        if (student.score < 0) student.score = 0;
+        if (attendanceMode === "mark") student.lastDate = todayStr();
+        else if (attendanceMode === "clear") student.lastDate = "";
+        pendingNames.add(targetName);
+        touchLocal();
+        render();
+        try {
+            await enqueueSave(targetName, () => postToCloud({
+                type: "UPDATE_SINGLE",
+                name: student.name,
+                score: student.score,
+                lastDate: student.lastDate
+            }));
+        } catch (e) {
+            setSyncStatus("儲存失敗");
+        } finally {
+            pendingNames.delete(targetName);
             render();
-            await postToCloud({ type: 'DELETE', name: targetName });
         }
     }
 
-    async function updateStudentData(targetName, scoreChange, isAttendance = false) {
-        if (!isDataLoaded) return;
-        const s = students.find(s => s.name === targetName);
-        if (s) {
-            s.score += scoreChange;
-            if (s.score < 0) s.score = 0;
-            if (isAttendance) {
-                const now = new Date();
-                s.lastDate = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
-            }
+    async function changeAvatar(file) {
+        if (!file || !detailName) return;
+        const student = students.find((item) => item.name === detailName);
+        if (!student) return;
+        const previous = avatars[student.name];
+        try {
+            avatars[student.name] = await fileToAvatar(file);
+            writeAvatars();
             render();
-            await postToCloud({
-                type: 'UPDATE_SINGLE',
-                name: s.name,
-                score: s.score,
-                lastDate: s.lastDate
-            });
+        } catch (e) {
+            if (previous) avatars[student.name] = previous;
+            else delete avatars[student.name];
+            alert(e && e.name === "QuotaExceededError" ? "這臺電腦存不下這張照片" : "這張圖讀不了，換一張看看");
         }
     }
 
-    async function claimGift(targetName, pts, giftName) {
+    function resetAvatar() {
+        if (!detailName || !avatars[detailName]) return;
+        delete avatars[detailName];
+        writeAvatars();
+        render();
+    }
+
+    function togglePhone(targetName) {
+        if (revealedPhones.has(targetName)) revealedPhones.delete(targetName);
+        else revealedPhones.add(targetName);
+        fillDetail();
+    }
+
+    function openAddModal() {
+        if (!isDataLoaded || addInFlight) return;
+        document.getElementById("addModal").hidden = false;
+        document.getElementById("stuName").focus();
+    }
+
+    function closeAddModal() {
+        document.getElementById("addModal").hidden = true;
+    }
+
+    function clearAddForm() {
+        document.getElementById("stuName").value = "";
+        document.getElementById("stuGender").value = "boy";
+        document.getElementById("stuBday").value = "";
+        document.getElementById("stuPhone").value = "";
+    }
+
+    function openRoster() {
         if (!isDataLoaded) return;
-        if (confirm(`兌換【${giftName}】嗎？`)) {
-            await updateStudentData(targetName, -pts);
-        }
+        renderRoster();
+        document.getElementById("rosterModal").hidden = false;
     }
 
-    function updateStats() {
-        const now = new Date();
-        const dateStr = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
-        document.getElementById('todayDate').innerText = dateStr;
-        document.getElementById('totalAtt').innerText = students.filter(s => s.lastDate == dateStr).length;
-        document.getElementById('canClaimCount').innerText = students.filter(s => s.score >= 30).length;
+    function closeRoster() {
+        batchSelected.clear();
+        document.getElementById("rosterModal").hidden = true;
     }
 
-    function render() {
-        const board = document.getElementById('playerBoard');
-        board.innerHTML = '';
-        const now = new Date();
-        const todayStr = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
-
-        students.forEach((s) => {
-            const progress = Math.min((s.score / 500) * 100, 100);
-            const isAttended = s.lastDate == todayStr;
-            const canRedeem = config.filter(r => r.pts > 0 && s.score >= r.pts).reverse();
-            
-            const avatarUrl = (s.gender === 'girl') ? GIRL_IMG : BOY_IMG;
-
-            board.innerHTML += `
-                <div class="student-card ${isAttended ? 'active-today' : ''}">
-                    <button class="btn-delete" onclick="removeStudent('${s.name}')">✕</button>
-                    <div class="profile-area">
-                        <img src="${avatarUrl}" class="avatar-img" onerror="this.src='https://via.placeholder.com/80?text=Avatar'">
-                        <div class="name">${s.name}</div>
-                        <div class="info-text">🎂 生日: ${s.birthday}</div>
-                        <div class="info-text" style="color:var(--neon-blue)">📞 ${s.phone}</div>
-                        <div class="score-box">⭐ ${s.score} pt</div>
-                    </div>
-                    <div class="map-track">
-                        ${config.map(c => `
-                            <div class="node">
-                                <img src="${c.icon}" class="reward-img" alt="${c.label}" onerror="this.src='https://via.placeholder.com/45?text=🎁'">
-                                <div class="node-label">${c.pts}pt</div>
-                            </div>
-                        `).join('')}
-                        <img src="${avatarUrl}" class="marker-img" style="left: calc(${progress}% - 30px)" onerror="this.src='https://via.placeholder.com/60?text=P'">
-                    </div>
-                    <div class="ops">
-                        <button class="btn-op btn-att" onclick="updateStudentData('${s.name}', 10, true)">出席點名 +10</button>
-                        <button class="btn-op btn-bonus" onclick="updateStudentData('${s.name}', 10)">表現加分 +10</button>
-                        <button class="btn-op btn-sub" onclick="updateStudentData('${s.name}', -10)">修正扣分 -10</button>
-                    </div>
-                    <div class="claim-area">
-                        ${canRedeem.length > 0 ? canRedeem.map(cr => `
-                            <button class="btn-claim" onclick="claimGift('${s.name}', ${cr.pts}, '${cr.label}')">换${cr.label}</button>
-                        `).join('') : '<span style="color:#666; font-size:12px;">探索中...</span>'}
-                    </div>
-                </div>`;
+    function toggleSelectAbsent() {
+        if (batchInFlight) return;
+        const absent = absentStudents();
+        const allSelected = absent.length > 0 && absent.every((student) => batchSelected.has(student.name));
+        absent.forEach((student) => {
+            if (allSelected) batchSelected.delete(student.name);
+            else batchSelected.add(student.name);
         });
-        updateStats();
+        renderRoster();
     }
 
+    async function markSelected() {
+        const names = selectedAbsentNames();
+        if (!names.length || batchInFlight || !isDataLoaded) return;
+        if (!confirm(`點名 ${names.length} 人，每人 +10？`)) return;
+        batchInFlight = true;
+        updateBatchButtons();
+        try {
+            for (const name of names) {
+                batchSelected.delete(name);
+                await updateStudentData(name, 10, "mark");
+            }
+        } finally {
+            batchInFlight = false;
+            if (!document.getElementById("rosterModal").hidden) updateBatchButtons();
+        }
+    }
+
+    function openScoreModal(mode) {
+        if (!isDataLoaded) return;
+        scoreMode = mode;
+        document.getElementById("scoreTitle").textContent = mode === "bonus" ? "加分" : "扣分";
+        renderScoreList();
+        document.getElementById("scoreModal").hidden = false;
+    }
+
+    function closeScoreModal() {
+        document.getElementById("scoreModal").hidden = true;
+    }
+
+    function openDetail(name) {
+        detailName = name;
+        const modal = document.getElementById("detailModal");
+        modal.hidden = false;
+        fillDetail();
+    }
+
+    function closeDetail() {
+        detailName = "";
+        document.getElementById("detailModal").hidden = true;
+    }
+
+    document.getElementById("planetGrid").addEventListener("click", (event) => {
+        const button = event.target.closest("[data-action='detail']");
+        if (!button) return;
+        openDetail(button.dataset.name);
+    });
+
+    document.getElementById("rosterList").addEventListener("change", (event) => {
+        const box = event.target.closest("[data-batch]");
+        if (!box || batchInFlight) return;
+        if (box.checked) batchSelected.add(box.dataset.batch);
+        else batchSelected.delete(box.dataset.batch);
+        updateBatchButtons();
+    });
+
+    document.getElementById("rosterList").addEventListener("click", (event) => {
+        const button = event.target.closest("[data-name]");
+        if (!button || button.disabled) return;
+        const name = button.dataset.name;
+        const student = students.find((item) => item.name === name);
+        if (!student) return;
+        if (student.lastDate === todayStr()) {
+            if (confirm(`取消【${name}】今天的出席，並扣 10 分？`)) updateStudentData(name, -10, "clear");
+        } else {
+            updateStudentData(name, 10, "mark");
+        }
+    });
+
+    document.getElementById("scoreList").addEventListener("click", (event) => {
+        const button = event.target.closest("[data-name]");
+        if (!button || button.disabled) return;
+        const name = button.dataset.name;
+        const change = scoreMode === "bonus" ? 10 : -10;
+        closeScoreModal();
+        updateStudentData(name, change, null);
+    });
+
+    document.getElementById("changeAvatar").addEventListener("click", () => {
+        if (!detailName) return;
+        document.getElementById("avatarFile").click();
+    });
+
+    document.getElementById("avatarFile").addEventListener("change", (event) => {
+        const file = event.target.files && event.target.files[0];
+        event.target.value = "";
+        changeAvatar(file);
+    });
+
+    document.getElementById("resetAvatar").addEventListener("click", resetAvatar);
+
+    document.getElementById("detailPhone").addEventListener("click", () => {
+        if (!detailName) return;
+        togglePhone(detailName);
+    });
+
+    document.getElementById("detailDelete").addEventListener("click", () => {
+        if (!detailName) return;
+        removeStudent(detailName);
+    });
+
+    document.getElementById("rosterBtn").addEventListener("click", openRoster);
+    document.getElementById("bonusBtn").addEventListener("click", () => openScoreModal("bonus"));
+    document.getElementById("subBtn").addEventListener("click", () => openScoreModal("sub"));
+    document.getElementById("selectAbsent").addEventListener("click", toggleSelectAbsent);
+    document.getElementById("markSelected").addEventListener("click", markSelected);
+    document.getElementById("closeRoster").addEventListener("click", closeRoster);
+    document.getElementById("closeScore").addEventListener("click", closeScoreModal);
+    document.getElementById("closeDetail").addEventListener("click", closeDetail);
+    document.getElementById("rosterModal").addEventListener("click", (event) => {
+        if (event.target.id === "rosterModal") closeRoster();
+    });
+    document.getElementById("scoreModal").addEventListener("click", (event) => {
+        if (event.target.id === "scoreModal") closeScoreModal();
+    });
+    document.getElementById("detailModal").addEventListener("click", (event) => {
+        if (event.target.id === "detailModal") closeDetail();
+    });
+
+    document.getElementById("addBtn").addEventListener("click", openAddModal);
+    document.getElementById("cancelAdd").addEventListener("click", closeAddModal);
+    document.getElementById("addModal").addEventListener("click", (event) => {
+        if (event.target.id === "addModal") closeAddModal();
+    });
+    document.getElementById("addForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        addStudent();
+    });
+    document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        if (!document.getElementById("detailModal").hidden) closeDetail();
+        else if (!document.getElementById("scoreModal").hidden) closeScoreModal();
+        else if (!document.getElementById("rosterModal").hidden) closeRoster();
+        else if (!document.getElementById("addModal").hidden) closeAddModal();
+    });
+    document.getElementById("refreshBtn").addEventListener("click", fetchData);
+
+    render();
+    const cached = readCache();
+    if (cached) {
+        students = cached;
+        isDataLoaded = true;
+        render();
+        document.getElementById("loading").style.display = "none";
+    }
     fetchData();
 </script>
 </body>
 </html>
-
